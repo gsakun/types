@@ -75,6 +75,8 @@ type ComponentSchematicSpec struct {
 	WorkloadSettings []WorkloadSetting `json:"workloadSetings,omitempty"`
 }
 
+type SecurityContext struct {}
+
 type ConfigFile struct {
 	Path      string `json:"path"`
 	Value     string `json:"value"`
@@ -282,6 +284,8 @@ type Parameter struct {
 	Default     string `json:"default,omitempty"`
 }
 
+type AppTraits struct{}
+
 type ApplicationConfigurationSpec struct {
 	Parameters   []Parameter  `json:"parameters,omitempty"`
 	Components   []Component  `json:"components"`
@@ -290,7 +294,12 @@ type ApplicationConfigurationSpec struct {
 
 type ApplicationConfigurationTemplate struct {
 	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
 	
-	AppConfTempSpec ApplicationConfigurationSpec `json:"spec"`
+	Spec ApplicationConfigurationSpec `json:"spec"`
+	Status ApplicationConfigurationStatus `json:"status,omitempty"`
+}
+
+type ApplicationConfigurationStatus struct {
+	Match bool `json:"match,omitempty"`
 }

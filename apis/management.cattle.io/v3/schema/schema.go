@@ -42,7 +42,8 @@ var (
 		Init(etcdBackupTypes).
 		Init(monitorTypes).
 		Init(credTypes).
-		Init(mgmtSecretTypes)
+		Init(mgmtSecretTypes).
+		Init(oamTypes)
 
 	TokenSchemas = factory.Schemas(&Version).
 			Init(tokens)
@@ -803,4 +804,8 @@ func monitorTypes(schemas *types.Schemas) *types.Schemas {
 
 func etcdBackupTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.MustImport(&Version, v3.EtcdBackup{})
+}
+
+func oamTypes(schemas *types.Schemas) *types.Schemas {
+	return schemas.MustImport(&Version, v3.ApplicationConfigurationTemplate{})
 }
