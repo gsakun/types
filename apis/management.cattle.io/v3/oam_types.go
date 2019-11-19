@@ -50,8 +50,6 @@ const (
 	PullIfNotPresent PullPolicy = "IfNotPresent"
 )
 
-
-
 const (
 	Server          WorkloadType = "Server"
 	SingletonServer WorkloadType = "SingletonServer"
@@ -75,7 +73,7 @@ type ComponentSchematicSpec struct {
 	WorkloadSettings []WorkloadSetting `json:"workloadSetings,omitempty"`
 }
 
-type SecurityContext struct {}
+type SecurityContext struct{}
 
 type ConfigFile struct {
 	Path      string `json:"path"`
@@ -84,10 +82,10 @@ type ConfigFile struct {
 }
 
 type WorkloadSetting struct {
-	Name      string      `json:"name"`
-	Type      string      `json:"type"`
-	Value     string      `json:"value"`
-	FromParam string      `json:"fromParam"`
+	Name      string `json:"name"`
+	Type      string `json:"type"`
+	Value     string `json:"value"`
+	FromParam string `json:"fromParam"`
 }
 
 type HealthProbe struct {
@@ -153,17 +151,17 @@ type ComponentSchematicList struct {
 }
 
 type WhiteList struct {
-	Users  []string  `json:"users,omitempty"`
+	Users []string `json:"users,omitempty"`
 }
 
 type Ingress struct {
-	Host string `json:"host"`
-	Path string `json:"path,omitempty"`
-	ServerPort int  `json:"serverPort,omitempty"`
+	Host       string `json:"host"`
+	Path       string `json:"path,omitempty"`
+	ServerPort int    `json:"serverPort,omitempty"`
 }
 
 type VolumeMounter struct {
-	VolumeName string `json:"volumeName"`
+	VolumeName   string `json:"volumeName"`
 	StorageClass string `json:"storageClass"`
 }
 
@@ -172,29 +170,29 @@ type ManualScaler struct {
 }
 
 type ComponentTraitsForOpt struct {
-	ManualScaler ManualScaler `json:"manualScaler,omitempty"`
+	ManualScaler  ManualScaler  `json:"manualScaler,omitempty"`
 	VolumeMounter VolumeMounter `json:"volumeMounter,omitempty"`
-	Ingress Ingress `json:"ingress,omitempty"`
-	WhiteList WhiteList `json:"whiteList,omitempty"`
+	Ingress       Ingress       `json:"ingress,omitempty"`
+	WhiteList     WhiteList     `json:"whiteList,omitempty"`
 }
 
 //负载均衡类型 rr;leastConn;random
 //consistentType sourceIP
 type IngressLB struct {
-	LBType  string  `json:"lbType,omitempty"` 
+	LBType         string `json:"lbType,omitempty"`
 	ConsistentType string `json:"consistentType,omitempty"`
 }
 
 type ImagePullConfig struct {
-	Registry  string `json:"registry,omitempty"`
-	Username  string `json:"username,omitempty"`
-	Password  string `json:"password,omitempty"`
+	Registry string `json:"registry,omitempty"`
+	Username string `json:"username,omitempty"`
+	Password string `json:"password,omitempty"`
 }
 
 type ComponentTraitsForDev struct {
-	ImagePullConfig  ImagePullConfig `json:"imagePullConfig,omitempty"`
-	StaticIP  bool  `json:"staticIP,omitempty"`
-	IngressLB  IngressLB  `json:"ingressLB,omitempty"`
+	ImagePullConfig ImagePullConfig `json:"imagePullConfig,omitempty"`
+	StaticIP        bool            `json:"staticIP,omitempty"`
+	IngressLB       IngressLB       `json:"ingressLB,omitempty"`
 }
 
 type Disk struct {
@@ -211,7 +209,7 @@ type Volume struct {
 }
 
 type CResource struct {
-	Cpu     float32   `json:"cpu,omitempty"`
+	Cpu     float32  `json:"cpu,omitempty"`
 	Memory  string   `json:"memory,omitempty"`
 	Gpu     float32  `json:"gpu,omitempty"`
 	Volumes []Volume `json:"volumes,omitempty"`
@@ -258,21 +256,21 @@ type Container struct {
 type WorkloadType string
 
 type Component struct {
-	serverName  string `json:"serverName"`
-	Parameters  []Parameter `json:"parameters,omitempty"`
+	serverName string      `json:"serverName"`
+	Parameters []Parameter `json:"parameters,omitempty"`
 
-	WorkloadType  WorkloadType `json:"workloadType"`
+	WorkloadType WorkloadType `json:"workloadType"`
 
-	OsType  string `json:"osType,omitempty"`
+	OsType string `json:"osType,omitempty"`
 
-	Arch  string `json:"arch,omitempty"`
+	Arch string `json:"arch,omitempty"`
 
-	Containers  []Container `json:"containers,omitempty"`
+	Containers []Container `json:"containers,omitempty"`
 
-	WorkloadSettings  []WorkloadSetting `json:"workloadSetings,omitempty"`
-	
-	DevTraits  ComponentTraitsForDev  `json:"devTraits,omitempty"`
-	OptTraits  ComponentTraitsForOpt  `json:"optTraits,omitempty"`
+	WorkloadSettings []WorkloadSetting `json:"workloadSetings,omitempty"`
+
+	DevTraits ComponentTraitsForDev `json:"devTraits,omitempty"`
+	OptTraits ComponentTraitsForOpt `json:"optTraits,omitempty"`
 }
 
 //int,float,string,bool,json
@@ -287,16 +285,16 @@ type Parameter struct {
 type AppTraits struct{}
 
 type ApplicationConfigurationSpec struct {
-	Parameters   []Parameter  `json:"parameters,omitempty"`
-	Components   []Component  `json:"components"`
-	AppTraits    AppTraits    `json:"appTraits,omitempty"`
+	Parameters []Parameter `json:"parameters,omitempty"`
+	Components []Component `json:"components"`
+	AppTraits  AppTraits   `json:"appTraits,omitempty"`
 }
 
 type ApplicationConfigurationTemplate struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	
-	Spec ApplicationConfigurationSpec `json:"spec"`
+
+	Spec   ApplicationConfigurationSpec   `json:"spec"`
 	Status ApplicationConfigurationStatus `json:"status,omitempty"`
 }
 

@@ -75,6 +75,7 @@ type Interface interface {
 	ClusterMonitorGraphsGetter
 	ProjectMonitorGraphsGetter
 	CloudCredentialsGetter
+	ApplicationConfigurationTemplatesGetter
 }
 
 type Clients struct {
@@ -135,6 +136,7 @@ type Clients struct {
 	ClusterMonitorGraph                     ClusterMonitorGraphClient
 	ProjectMonitorGraph                     ProjectMonitorGraphClient
 	CloudCredential                         CloudCredentialClient
+	ApplicationConfigurationTemplate        ApplicationConfigurationTemplateClient
 }
 
 type Client struct {
@@ -197,6 +199,7 @@ type Client struct {
 	clusterMonitorGraphControllers                     map[string]ClusterMonitorGraphController
 	projectMonitorGraphControllers                     map[string]ProjectMonitorGraphController
 	cloudCredentialControllers                         map[string]CloudCredentialController
+	applicationConfigurationTemplateControllers        map[string]ApplicationConfigurationTemplateController
 }
 
 func Factory(ctx context.Context, config rest.Config) (context.Context, controller.Starter, error) {
@@ -397,6 +400,9 @@ func NewClientsFromInterface(iface Interface) *Clients {
 		CloudCredential: &cloudCredentialClient2{
 			iface: iface.CloudCredentials(""),
 		},
+		ApplicationConfigurationTemplate: &applicationConfigurationTemplateClient2{
+			iface: iface.ApplicationConfigurationTemplates(""),
+		},
 	}
 }
 
@@ -468,6 +474,7 @@ func NewForConfig(config rest.Config) (Interface, error) {
 		clusterMonitorGraphControllers:                     map[string]ClusterMonitorGraphController{},
 		projectMonitorGraphControllers:                     map[string]ProjectMonitorGraphController{},
 		cloudCredentialControllers:                         map[string]CloudCredentialController{},
+		applicationConfigurationTemplateControllers:        map[string]ApplicationConfigurationTemplateController{},
 	}, nil
 }
 
@@ -1192,6 +1199,19 @@ type CloudCredentialsGetter interface {
 func (c *Client) CloudCredentials(namespace string) CloudCredentialInterface {
 	objectClient := objectclient.NewObjectClient(namespace, c.restClient, &CloudCredentialResource, CloudCredentialGroupVersionKind, cloudCredentialFactory{})
 	return &cloudCredentialClient{
+		ns:           namespace,
+		client:       c,
+		objectClient: objectClient,
+	}
+}
+
+type ApplicationConfigurationTemplatesGetter interface {
+	ApplicationConfigurationTemplates(namespace string) ApplicationConfigurationTemplateInterface
+}
+
+func (c *Client) ApplicationConfigurationTemplates(namespace string) ApplicationConfigurationTemplateInterface {
+	objectClient := objectclient.NewObjectClient(namespace, c.restClient, &ApplicationConfigurationTemplateResource, ApplicationConfigurationTemplateGroupVersionKind, applicationConfigurationTemplateFactory{})
+	return &applicationConfigurationTemplateClient{
 		ns:           namespace,
 		client:       c,
 		objectClient: objectClient,
