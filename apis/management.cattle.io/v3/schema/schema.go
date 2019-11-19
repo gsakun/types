@@ -807,5 +807,8 @@ func etcdBackupTypes(schemas *types.Schemas) *types.Schemas {
 }
 
 func oamTypes(schemas *types.Schemas) *types.Schemas {
-	return schemas.MustImport(&Version, v3.ApplicationConfigurationTemplate{})
+	return schemas.
+	    MustImport(&Version, v3.ApplicationConfigurationTemplate{}).
+	    MustImport(&Version, v3.Component{}).
+	    MustImport(&Version, v3.Container{})
 }
