@@ -1,8 +1,8 @@
 package v3
 
 import (
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	projectv3 "github.com/rancher/types/apis/project.cattle.io/v3"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 /*
@@ -35,7 +35,7 @@ type AppTraits struct{}
 type ApplicationConfigurationSpec struct {
 	Parameters []projectv3.Parameter `json:"parameters,omitempty"`
 	Components []projectv3.Component `json:"components"`
-	AppTraits  AppTraits   `json:"appTraits,omitempty"`
+	AppTraits  AppTraits             `json:"appTraits,omitempty"`
 }
 
 type ApplicationConfigurationTemplate struct {

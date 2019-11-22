@@ -1049,5 +1049,5 @@ func applicationTypes(schemas *types.Schemas) *types.Schemas {
 		MustImport(&Version, v3.Component{}).
 		MustImport(&Version, v3.Container{}).
 		MustImport(&Version, v3.Port{})
-		
+
 }

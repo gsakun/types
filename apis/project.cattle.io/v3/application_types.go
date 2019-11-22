@@ -27,8 +27,8 @@ type Application struct {
 	types.Namespaced
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	
-	Spec ApplicationSpec `json:"spec,omitempty"`
+
+	Spec   ApplicationSpec   `json:"spec,omitempty"`
 	Status ApplicationStatus `json:"spec,omitempty"`
 }
 
