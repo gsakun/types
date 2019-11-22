@@ -18,3 +18,5 @@ type Application struct {
 type ApplicationSpec struct {
 	Components []managementv3.Component `json:"components"`
 }
+
+type ApplicationStatus struct{}
