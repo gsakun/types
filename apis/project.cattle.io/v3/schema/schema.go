@@ -8,7 +8,6 @@ import (
 	"github.com/rancher/norman/types"
 	m "github.com/rancher/norman/types/mapper"
 	v3 "github.com/rancher/types/apis/project.cattle.io/v3"
-	managementv3 "github.com/rancher/types/apis/management.cattle.io/v3"
 	"github.com/rancher/types/factory"
 	"github.com/rancher/types/mapper"
 	"k8s.io/api/apps/v1beta2"
@@ -1047,8 +1046,8 @@ func istioTypes(schemas *types.Schemas) *types.Schemas {
 func applicationTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
 		MustImport(&Version, v3.Application{}, projectOverride{}).
-		MustImport(&Version, managementv3.Component{}).
-		MustImport(&Version, managementv3.Container{}).
-		MustImport(&Version, managementv3.Port{})
+		MustImport(&Version, v3.Component{}).
+		MustImport(&Version, v3.Container{}).
+		MustImport(&Version, v3.Port{})
 		
 }

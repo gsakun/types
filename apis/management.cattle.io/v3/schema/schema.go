@@ -6,6 +6,7 @@ import (
 	"github.com/rancher/norman/types"
 	m "github.com/rancher/norman/types/mapper"
 	v3 "github.com/rancher/types/apis/management.cattle.io/v3"
+	projectv3 "github.com/rancher/types/apis/project.cattle.io/v3"
 	"github.com/rancher/types/factory"
 	"github.com/rancher/types/mapper"
 	v1 "k8s.io/api/core/v1"
@@ -809,7 +810,7 @@ func etcdBackupTypes(schemas *types.Schemas) *types.Schemas {
 func oamTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
 		MustImport(&Version, v3.ApplicationConfigurationTemplate{}).
-		MustImport(&Version, v3.Component{}).
-		MustImport(&Version, v3.Container{}).
-		MustImport(&Version, v3.Port{})
+		MustImport(&Version, projectv3.Component{}).
+		MustImport(&Version, projectv3.Container{}).
+		MustImport(&Version, projectv3.Port{})
 }
