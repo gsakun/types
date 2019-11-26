@@ -1045,9 +1045,8 @@ func istioTypes(schemas *types.Schemas) *types.Schemas {
 
 func applicationTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
-		MustImport(&Version, v3.Application{}, projectOverride{}).
-		MustImport(&Version, v3.Component{}).
-		MustImport(&Version, v3.Container{}).
-		MustImport(&Version, v3.Port{})
-
+	    MustImport(&Version, v3.Port{}).
+	    MustImport(&Version, v3.Container{}).
+	    MustImport(&Version, v3.Component{}).
+		MustImport(&Version, v3.Application{}, projectOverride{})
 }

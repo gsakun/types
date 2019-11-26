@@ -29,7 +29,7 @@ type Application struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	Spec   ApplicationSpec   `json:"spec,omitempty"`
-	Status ApplicationStatus `json:"spec,omitempty"`
+	Status ApplicationStatus `json:"status,omitempty"`
 }
 
 type ApplicationSpec struct {
