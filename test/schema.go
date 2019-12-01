@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	Schemas = factory.Schemas(&schema.Version).
-		Init(applicationTypes)
+	Schemas = factory.Schemas(&mgtschema.Version).
+		Init(oamTypes)
 )
 
 func applicationTypes(schemas *types.Schemas) *types.Schemas {
@@ -22,7 +22,7 @@ func applicationTypes(schemas *types.Schemas) *types.Schemas {
 		MustImport(&schema.Version, v3.Port{}).
 		MustImport(&schema.Version, v3.Container{}).
 		MustImport(&schema.Version, v3.Component{}).
-        MustImport(&schema.Version, v3.Application{})
+        MustImport(&schema.Version, v3.Application{}, projectOverride{})
 }
 
 type projectOverride struct {

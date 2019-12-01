@@ -45,7 +45,8 @@ func printSchema(){
 	for k, v := range schemas {
 		fmt.Println("the num is : ", k)
 		if v.CanList(nil) == nil {
-			b, err := json.Marshal(*v)
+		}
+		b, err := json.Marshal(*v)
 	    if err != nil {
 	        fmt.Sprintf("%+v", *v)
 	    }
@@ -56,6 +57,6 @@ func printSchema(){
 	    }
 		fmt.Println(out.String())
 		fmt.Println("...................................")
-		}
 	}
+	
 }

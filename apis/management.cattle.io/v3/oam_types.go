@@ -46,6 +46,4 @@ type ApplicationConfigurationTemplate struct {
 	Status ApplicationConfigurationStatus `json:"status,omitempty"`
 }
 
-type ApplicationConfigurationStatus struct {
-	Match bool `json:"match,omitempty"`
-}
+type ApplicationConfigurationStatus struct {}

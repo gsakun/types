@@ -95,9 +95,9 @@ type Volume struct {
 }
 
 type CResource struct {
-	Cpu     float32  `json:"cpu,omitempty"`
+	Cpu     string  `json:"cpu,omitempty"`
 	Memory  string   `json:"memory,omitempty"`
-	Gpu     float32  `json:"gpu,omitempty"`
+	Gpu     int  `json:"gpu,omitempty"`
 	Volumes []Volume `json:"volumes,omitempty"`
 }
 
@@ -113,7 +113,7 @@ type Port struct {
 	Protocol      string `json:"protocol"`
 }
 
-type Container struct {
+type ComponentContainer struct {
 	Name string `json:"name"`
 
 	Image string `json:"image,omitempty"`
@@ -142,7 +142,7 @@ type Container struct {
 type WorkloadType string
 
 type Component struct {
-	serverName string      `json:"serverName"`
+	Name string      `json:"name"`
 	Parameters []Parameter `json:"parameters,omitempty"`
 
 	WorkloadType WorkloadType `json:"workloadType"`
@@ -151,7 +151,7 @@ type Component struct {
 
 	Arch string `json:"arch,omitempty"`
 
-	Containers []Container `json:"containers,omitempty"`
+	Containers []ComponentContainer `json:"containers,omitempty"`
 
 	WorkloadSettings []WorkloadSetting `json:"workloadSetings,omitempty"`
 
@@ -237,4 +237,21 @@ type ExecAction struct {
 
 type PullPolicy string
 
-type ApplicationStatus struct{}
+type ApplicationStatus struct {
+	ComponentResource []ComponentResources `json:"componentResource,omitempty"`
+}
+
+type ComponentResources struct {
+	ComponentId  string `json:"componentId,omitempty"`
+	Workload     string `json:"workload,omitempty"`
+	Service      string  `json:"service,omitempty"`
+	ConfigMaps    []string  `json:"configMaps,omitempty"`
+	ImagePullSecret  string  `json:"imagePullSecret,omitempty"`
+	Gateway      string `json:"gateway,omitempty"`
+	Policy       string `json:"policy,omitempty"`
+	ClusterRbacConfig  string  `json:"clusterRbacConfig,omitempty"`
+	VirtualService  string  `json:"virtualService,omitempty"`
+	ServiceRole  string  `json:"serviceRole,omitempty"`
+	ServiceRoleBinding  string  `json:"serviceRoleBinding,omitempty"`
+	DestinationRule  string   `json:"DestinationRule,omitempty"`
+}
