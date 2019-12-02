@@ -1042,11 +1042,11 @@ func istioTypes(schemas *types.Schemas) *types.Schemas {
 		}{}).
 		MustImport(&Version, istiov1alpha3.Gateway{}, projectOverride{}, struct {
 			Status interface{}
-		}{}).
+		}{})
+		/*
 		MustImport(&Version, istioauthnv1alphav1.Policy{}, projectOverride{}, struct {
 			Status interface{}
 		}{})
-		/*
 		MustImport(&Version, istiorbacv1alphav1.ClusterRbacConfig{}, projectOverride{}, struct {
 			Status interface{}
 		}{}).
