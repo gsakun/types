@@ -1,7 +1,7 @@
 package v1alpha1
 
 import (
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 const (
@@ -21,8 +21,8 @@ const (
 type RbacConfigMode int32
 
 type ClusterRbacConfig struct {
-	v1.TypeMeta `json:",inline"`
-	v1.ObjectMeta `json:"metadata,omitempty"`
+	metav1.TypeMeta `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
 
 	Spec RbacConfigSpec `json:"spec,omitempty"`
 }
