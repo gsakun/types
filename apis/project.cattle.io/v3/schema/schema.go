@@ -1045,7 +1045,8 @@ func istioTypes(schemas *types.Schemas) *types.Schemas {
 		}{}).
 		MustImport(&Version, istiorbacv1alphav1.ClusterRbacConfig{}, projectOverride{}, struct {
 			Status interface{}
-		}{}).
+		}{})
+		/*
 		MustImport(&Version, istiorbacv1alphav1.ServiceRole{}, projectOverride{}, struct {
 			Status interface{}
 		}{}).

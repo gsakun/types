@@ -108,16 +108,7 @@ const (
 //   inclusion:
 //     namespaces: [ "default" ]
 // ```
-//
-// <!-- go code generation tags
-// +kubetype-gen
-// +kubetype-gen:groupVersion=rbac.istio.io/v1alpha1
-// +kubetype-gen:kubeType=RbacConfig
-// +kubetype-gen:kubeType=ClusterRbacConfig
-// +kubetype-gen:ClusterRbacConfig:tag=genclient:nonNamespaced
-// +genclient
-// +k8s:deepcopy-gen=true
-// -->
+
 type RbacConfigSpec struct {
 	// Istio RBAC mode.
 	Mode RbacConfigMode `protobuf:"varint,1,opt,name=mode,proto3,enum=istio.rbac.v1alpha1.RbacConfig_Mode" json:"mode,omitempty"`
@@ -158,16 +149,7 @@ type RbacConfigSpec struct {
 //   inclusion:
 //     namespaces: [ "default" ]
 // ```
-//
-// <!-- go code generation tags
-// +kubetype-gen
-// +kubetype-gen:groupVersion=rbac.istio.io/v1alpha1
-// +kubetype-gen:kubeType=RbacConfig
-// +kubetype-gen:kubeType=ClusterRbacConfig
-// +kubetype-gen:ClusterRbacConfig:tag=genclient:nonNamespaced
-// +genclient
-// +k8s:deepcopy-gen=true
-// -->
+
 type ClusterRbacConfig struct {
 	v1.TypeMeta `json:",inline"`
 	// +optional
@@ -177,8 +159,6 @@ type ClusterRbacConfig struct {
 	// +optional
 	Spec RbacConfigSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
-
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // ClusterRbacConfigList is a collection of ClusterRbacConfigs.
 type ClusterRbacConfigList struct {
