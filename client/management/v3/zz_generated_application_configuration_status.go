@@ -1,10 +1,8 @@
 package client
 
 const (
-	ApplicationConfigurationStatusType       = "applicationConfigurationStatus"
-	ApplicationConfigurationStatusFieldMatch = "match"
+	ApplicationConfigurationStatusType = "applicationConfigurationStatus"
 )
 
 type ApplicationConfigurationStatus struct {
-	Match bool `json:"match,omitempty" yaml:"match,omitempty"`
 }

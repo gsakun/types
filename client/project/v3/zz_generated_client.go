@@ -50,6 +50,9 @@ type Client struct {
 	DestinationRule               DestinationRuleOperations
 	Gateway                       GatewayOperations
 	Application                   ApplicationOperations
+	ClusterRbacConfig             ClusterRbacConfigOperations
+	ServiceRole                   ServiceRoleOperations
+	ServiceRoleBinding            ServiceRoleBindingOperations
 }
 
 func NewClient(opts *clientbase.ClientOpts) (*Client, error) {
@@ -105,6 +108,9 @@ func NewClient(opts *clientbase.ClientOpts) (*Client, error) {
 	client.DestinationRule = newDestinationRuleClient(client)
 	client.Gateway = newGatewayClient(client)
 	client.Application = newApplicationClient(client)
+	client.ClusterRbacConfig = newClusterRbacConfigClient(client)
+	client.ServiceRole = newServiceRoleClient(client)
+	client.ServiceRoleBinding = newServiceRoleBindingClient(client)
 
 	return client, nil
 }

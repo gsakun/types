@@ -5,31 +5,41 @@ import (
 )
 
 const (
-	ApplicationType                 = "application"
-	ApplicationFieldAnnotations     = "annotations"
-	ApplicationFieldCreated         = "created"
-	ApplicationFieldCreatorID       = "creatorId"
-	ApplicationFieldLabels          = "labels"
-	ApplicationFieldName            = "name"
-	ApplicationFieldNamespaceId     = "namespaceId"
-	ApplicationFieldOwnerReferences = "ownerReferences"
-	ApplicationFieldProjectID       = "projectId"
-	ApplicationFieldRemoved         = "removed"
-	ApplicationFieldUUID            = "uuid"
+	ApplicationType                      = "application"
+	ApplicationFieldAnnotations          = "annotations"
+	ApplicationFieldComponents           = "components"
+	ApplicationFieldCreated              = "created"
+	ApplicationFieldCreatorID            = "creatorId"
+	ApplicationFieldLabels               = "labels"
+	ApplicationFieldName                 = "name"
+	ApplicationFieldNamespaceId          = "namespaceId"
+	ApplicationFieldOwnerReferences      = "ownerReferences"
+	ApplicationFieldProjectID            = "projectId"
+	ApplicationFieldRemoved              = "removed"
+	ApplicationFieldState                = "state"
+	ApplicationFieldStatus               = "status"
+	ApplicationFieldTransitioning        = "transitioning"
+	ApplicationFieldTransitioningMessage = "transitioningMessage"
+	ApplicationFieldUUID                 = "uuid"
 )
 
 type Application struct {
 	types.Resource
-	Annotations     map[string]string `json:"annotations,omitempty" yaml:"annotations,omitempty"`
-	Created         string            `json:"created,omitempty" yaml:"created,omitempty"`
-	CreatorID       string            `json:"creatorId,omitempty" yaml:"creatorId,omitempty"`
-	Labels          map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
-	Name            string            `json:"name,omitempty" yaml:"name,omitempty"`
-	NamespaceId     string            `json:"namespaceId,omitempty" yaml:"namespaceId,omitempty"`
-	OwnerReferences []OwnerReference  `json:"ownerReferences,omitempty" yaml:"ownerReferences,omitempty"`
-	ProjectID       string            `json:"projectId,omitempty" yaml:"projectId,omitempty"`
-	Removed         string            `json:"removed,omitempty" yaml:"removed,omitempty"`
-	UUID            string            `json:"uuid,omitempty" yaml:"uuid,omitempty"`
+	Annotations          map[string]string  `json:"annotations,omitempty" yaml:"annotations,omitempty"`
+	Components           []Component        `json:"components,omitempty" yaml:"components,omitempty"`
+	Created              string             `json:"created,omitempty" yaml:"created,omitempty"`
+	CreatorID            string             `json:"creatorId,omitempty" yaml:"creatorId,omitempty"`
+	Labels               map[string]string  `json:"labels,omitempty" yaml:"labels,omitempty"`
+	Name                 string             `json:"name,omitempty" yaml:"name,omitempty"`
+	NamespaceId          string             `json:"namespaceId,omitempty" yaml:"namespaceId,omitempty"`
+	OwnerReferences      []OwnerReference   `json:"ownerReferences,omitempty" yaml:"ownerReferences,omitempty"`
+	ProjectID            string             `json:"projectId,omitempty" yaml:"projectId,omitempty"`
+	Removed              string             `json:"removed,omitempty" yaml:"removed,omitempty"`
+	State                string             `json:"state,omitempty" yaml:"state,omitempty"`
+	Status               *ApplicationStatus `json:"status,omitempty" yaml:"status,omitempty"`
+	Transitioning        string             `json:"transitioning,omitempty" yaml:"transitioning,omitempty"`
+	TransitioningMessage string             `json:"transitioningMessage,omitempty" yaml:"transitioningMessage,omitempty"`
+	UUID                 string             `json:"uuid,omitempty" yaml:"uuid,omitempty"`
 }
 
 type ApplicationCollection struct {

@@ -112,4 +112,7 @@ type Config struct {
 	DestinationRules               map[string]projectClient.DestinationRule               `json:"destinationRules,omitempty" yaml:"destinationRules,omitempty"`
 	Gateways                       map[string]projectClient.Gateway                       `json:"gateways,omitempty" yaml:"gateways,omitempty"`
 	Applications                   map[string]projectClient.Application                   `json:"applications,omitempty" yaml:"applications,omitempty"`
+	ClusterRbacConfigs             map[string]projectClient.ClusterRbacConfig             `json:"clusterRbacConfigs,omitempty" yaml:"clusterRbacConfigs,omitempty"`
+	ServiceRoles                   map[string]projectClient.ServiceRole                   `json:"serviceRoles,omitempty" yaml:"serviceRoles,omitempty"`
+	ServiceRoleBindings            map[string]projectClient.ServiceRoleBinding            `json:"serviceRoleBindings,omitempty" yaml:"serviceRoleBindings,omitempty"`
 }

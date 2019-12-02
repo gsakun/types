@@ -1,23 +1,23 @@
 package client
 
 const (
-	ContainerType                 = "container"
-	ContainerFieldArgs            = "args"
-	ContainerFieldCommand         = "command"
-	ContainerFieldConfig          = "config"
-	ContainerFieldEnv             = "env"
-	ContainerFieldImage           = "image"
-	ContainerFieldImagePullPolicy = "imagePullPolicy"
-	ContainerFieldImagePullSecret = "imagePullSecret"
-	ContainerFieldLivenessProbe   = "livenessProbe"
-	ContainerFieldName            = "name"
-	ContainerFieldPorts           = "ports"
-	ContainerFieldReadinessProbe  = "readinessProbe"
-	ContainerFieldResources       = "resources"
-	ContainerFieldSecurityContext = "securityContext"
+	ComponentContainerType                 = "componentContainer"
+	ComponentContainerFieldArgs            = "args"
+	ComponentContainerFieldCommand         = "command"
+	ComponentContainerFieldConfig          = "config"
+	ComponentContainerFieldEnv             = "env"
+	ComponentContainerFieldImage           = "image"
+	ComponentContainerFieldImagePullPolicy = "imagePullPolicy"
+	ComponentContainerFieldImagePullSecret = "imagePullSecret"
+	ComponentContainerFieldLivenessProbe   = "livenessProbe"
+	ComponentContainerFieldName            = "name"
+	ComponentContainerFieldPorts           = "ports"
+	ComponentContainerFieldReadinessProbe  = "readinessProbe"
+	ComponentContainerFieldResources       = "resources"
+	ComponentContainerFieldSecurityContext = "securityContext"
 )
 
-type Container struct {
+type ComponentContainer struct {
 	Args            []string         `json:"args,omitempty" yaml:"args,omitempty"`
 	Command         []string         `json:"command,omitempty" yaml:"command,omitempty"`
 	Config          []ConfigFile     `json:"config,omitempty" yaml:"config,omitempty"`

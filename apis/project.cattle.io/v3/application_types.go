@@ -95,9 +95,9 @@ type Volume struct {
 }
 
 type CResource struct {
-	Cpu     string  `json:"cpu,omitempty"`
+	Cpu     string   `json:"cpu,omitempty"`
 	Memory  string   `json:"memory,omitempty"`
-	Gpu     int  `json:"gpu,omitempty"`
+	Gpu     int      `json:"gpu,omitempty"`
 	Volumes []Volume `json:"volumes,omitempty"`
 }
 
@@ -142,7 +142,7 @@ type ComponentContainer struct {
 type WorkloadType string
 
 type Component struct {
-	Name string      `json:"name"`
+	Name       string      `json:"name"`
 	Parameters []Parameter `json:"parameters,omitempty"`
 
 	WorkloadType WorkloadType `json:"workloadType"`
@@ -242,16 +242,16 @@ type ApplicationStatus struct {
 }
 
 type ComponentResources struct {
-	ComponentId  string `json:"componentId,omitempty"`
-	Workload     string `json:"workload,omitempty"`
-	Service      string  `json:"service,omitempty"`
-	ConfigMaps    []string  `json:"configMaps,omitempty"`
-	ImagePullSecret  string  `json:"imagePullSecret,omitempty"`
-	Gateway      string `json:"gateway,omitempty"`
-	Policy       string `json:"policy,omitempty"`
-	ClusterRbacConfig  string  `json:"clusterRbacConfig,omitempty"`
-	VirtualService  string  `json:"virtualService,omitempty"`
-	ServiceRole  string  `json:"serviceRole,omitempty"`
-	ServiceRoleBinding  string  `json:"serviceRoleBinding,omitempty"`
-	DestinationRule  string   `json:"DestinationRule,omitempty"`
+	ComponentId        string   `json:"componentId,omitempty"`
+	Workload           string   `json:"workload,omitempty"`
+	Service            string   `json:"service,omitempty"`
+	ConfigMaps         []string `json:"configMaps,omitempty"`
+	ImagePullSecret    string   `json:"imagePullSecret,omitempty"`
+	Gateway            string   `json:"gateway,omitempty"`
+	Policy             string   `json:"policy,omitempty"`
+	ClusterRbacConfig  string   `json:"clusterRbacConfig,omitempty"`
+	VirtualService     string   `json:"virtualService,omitempty"`
+	ServiceRole        string   `json:"serviceRole,omitempty"`
+	ServiceRoleBinding string   `json:"serviceRoleBinding,omitempty"`
+	DestinationRule    string   `json:"DestinationRule,omitempty"`
 }

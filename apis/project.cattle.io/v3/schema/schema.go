@@ -2,11 +2,11 @@ package schema
 
 import (
 	"net/http"
-    
-    istioauthnv1alphav1 "github.com/lord/types/pkg/istio/apis/authentication/v1alpha1"
-	istiorbacv1alphav1 "github.com/lord/types/pkg/istio/apis/rbac/v1alpha1"
+
 	monitoringv1 "github.com/coreos/prometheus-operator/pkg/client/monitoring/v1"
 	istiov1alpha3 "github.com/knative/pkg/apis/istio/v1alpha3"
+	istioauthnv1alphav1 "github.com/lord/types/pkg/istio/apis/authentication/v1alpha1"
+	istiorbacv1alphav1 "github.com/lord/types/pkg/istio/apis/rbac/v1alpha1"
 	"github.com/rancher/norman/types"
 	m "github.com/rancher/norman/types/mapper"
 	v3 "github.com/rancher/types/apis/project.cattle.io/v3"
@@ -1046,7 +1046,7 @@ func istioNetworkingTypes(schemas *types.Schemas) *types.Schemas {
 		}{})
 }
 
-func istioRbacTypes (schemas *types.Schemas) *types.Schemas {
+func istioRbacTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
 		MustImport(&Version, istiorbacv1alphav1.ClusterRbacConfig{}, projectOverride{}, struct {
 			Status interface{}
@@ -1059,16 +1059,16 @@ func istioRbacTypes (schemas *types.Schemas) *types.Schemas {
 		}{})
 }
 
-func istioAuthnTypes (schemas *types.Schemas) *types.Schemas {
+func istioAuthnTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
 		MustImport(&Version, istioauthnv1alphav1.Policy{}, projectOverride{}, struct {
 			Status interface{}
 		}{})
 }
-	
+
 func applicationTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
-	    MustImport(&Version, v3.ComponentContainer{}).
-	    MustImport(&Version, v3.Component{}).
+		MustImport(&Version, v3.ComponentContainer{}).
+		MustImport(&Version, v3.Component{}).
 		MustImport(&Version, v3.Application{}, projectOverride{})
 }
