@@ -4,7 +4,7 @@ import (
 	"net/http"
     
     //istioauthnv1alphav1 "github.com/rancher/types/pkg/istio/apis/authentication/v1alpha1"
-	//istiorbacv1alphav1 "github.com/rancher/types/pkg/istio/apis/rbac/v1alpha1"
+	istiorbacv1alphav1 "github.com/rancher/types/pkg/istio/apis/rbac/v1alpha1"
 	monitoringv1 "github.com/coreos/prometheus-operator/pkg/client/monitoring/v1"
 	istiov1alpha3 "github.com/knative/pkg/apis/istio/v1alpha3"
 	"github.com/rancher/norman/types"
@@ -1042,11 +1042,7 @@ func istioTypes(schemas *types.Schemas) *types.Schemas {
 		}{}).
 		MustImport(&Version, istiov1alpha3.Gateway{}, projectOverride{}, struct {
 			Status interface{}
-		}{})
-		/*
-		MustImport(&Version, istioauthnv1alphav1.Policy{}, projectOverride{}, struct {
-			Status interface{}
-		}{})
+		}{}).
 		MustImport(&Version, istiorbacv1alphav1.ClusterRbacConfig{}, projectOverride{}, struct {
 			Status interface{}
 		}{}).
@@ -1056,7 +1052,13 @@ func istioTypes(schemas *types.Schemas) *types.Schemas {
 		MustImport(&Version, istiorbacv1alphav1.ServiceRoleBinding{}, projectOverride{}, struct {
 			Status interface{}
 		}{})
+		/*
+		MustImport(&Version, istioauthnv1alphav1.Policy{}, projectOverride{}, struct {
+			Status interface{}
+		}{}).
 		*/
+		
+		
 }
 
 func applicationTypes(schemas *types.Schemas) *types.Schemas {
