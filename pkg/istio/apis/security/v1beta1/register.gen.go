@@ -11,9 +11,9 @@ import (
 var (
 	// Package-wide variables from generator "register".
 	SchemeGroupVersion = schema.GroupVersion{Group: GroupName, Version: "v1beta1"}
-	SchemeBuilder      = runtime.NewSchemeBuilder(addKnownTypes)
-	localSchemeBuilder = &SchemeBuilder
-	AddToScheme        = localSchemeBuilder.AddToScheme
+	//SchemeBuilder      = runtime.NewSchemeBuilder(addKnownTypes)
+	//localSchemeBuilder = &SchemeBuilder
+	//AddToScheme        = localSchemeBuilder.AddToScheme
 )
 
 const (
