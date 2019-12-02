@@ -48,8 +48,9 @@ var (
 		Init(appTypes).
 		Init(pipelineTypes).
 		Init(monitoringTypes).
-		Init(istioTypes).
-		Init(applicationTypes)
+		Init(istioTypes)
+		
+		//Init(applicationTypes)
 )
 
 func configMapTypes(schemas *types.Schemas) *types.Schemas {
