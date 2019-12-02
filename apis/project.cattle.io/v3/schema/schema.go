@@ -1045,7 +1045,8 @@ func istioTypes(schemas *types.Schemas) *types.Schemas {
 		}{}).
 		MustImport(&Version, istioauthnv1alphav1.Policy{}, projectOverride{}, struct {
 			Status interface{}
-		}{}).
+		}{})
+		/*
 		MustImport(&Version, istiorbacv1alphav1.ClusterRbacConfig{}, projectOverride{}, struct {
 			Status interface{}
 		}{}).
@@ -1055,6 +1056,7 @@ func istioTypes(schemas *types.Schemas) *types.Schemas {
 		MustImport(&Version, istiorbacv1alphav1.ServiceRoleBinding{}, projectOverride{}, struct {
 			Status interface{}
 		}{})
+		*/
 }
 
 func applicationTypes(schemas *types.Schemas) *types.Schemas {
