@@ -32,10 +32,10 @@ type RbacConfigSpec struct {
 	Mode RbacConfigMode `json:"mode,omitempty"`
 	// A list of services or namespaces that should be enforced by Istio RBAC policies. Note: This field have
 	// effect only when mode is ON_WITH_INCLUSION and will be ignored for any other modes.
-	Inclusion RbacConfigTarget `json:"inclusion,omitempty"`
+	Inclusion *RbacConfigTarget `json:"inclusion,omitempty"`
 	// A list of services or namespaces that should not be enforced by Istio RBAC policies. Note: This field have
 	// effect only when mode is ON_WITH_EXCLUSION and will be ignored for any other modes.
-	Exclusion RbacConfigTarget `json:"exclusion,omitempty"`
+	Exclusion *RbacConfigTarget `json:"exclusion,omitempty"`
 
 	EnforcementMode EnforcementMode `json:"enforcementMode,omitempty"`
 }
@@ -59,7 +59,7 @@ const (
 	PERMISSIVE EnforcementMode = 1
 )
 
-/*
+
 type RbacConfig struct {
 	v1.TypeMeta `json:",inline"`
 	// +optional
@@ -245,15 +245,6 @@ type Subject struct {
 	Properties map[string]string `protobuf:"bytes,3,rep,name=properties,proto3" json:"properties,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 
-const (
-	// Policy in ENFORCED mode has impact on user experience.
-	// Policy is in ENFORCED mode by default.
-	EnforcementMode_ENFORCED EnforcementMode = 0
-	// Policy in PERMISSIVE mode isn't enforced and has no impact on users.
-	// RBAC engine run policies in PERMISSIVE mode and logs stats.
-	EnforcementMode_PERMISSIVE EnforcementMode = 1
-)
-
 type RoleRef struct {
 	// The type of the role being referenced.
 	// Currently, "ServiceRole" is the only supported value for "kind".
@@ -262,4 +253,3 @@ type RoleRef struct {
 	// The ServiceRole object must be in the same namespace as the ServiceRoleBinding object.
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 }
-*/

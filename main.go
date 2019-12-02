@@ -109,8 +109,8 @@ func main() {
 	generator.GenerateNativeTypes(istiorbacv1alphav1.SchemeGroupVersion,
 		[]interface{}{
 			istiorbacv1alphav1.ClusterRbacConfig{},
-			//istiorbacv1alphav1.ServiceRole{},
-			//istiorbacv1alphav1.ServiceRoleBinding{},
+			istiorbacv1alphav1.ServiceRole{},
+			istiorbacv1alphav1.ServiceRoleBinding{},
 		},
 		[]interface{}{},
 	)
