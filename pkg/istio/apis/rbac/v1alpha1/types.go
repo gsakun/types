@@ -32,10 +32,10 @@ type RbacConfigSpec struct {
 	Mode RbacConfigMode `json:"mode,omitempty"`
 	// A list of services or namespaces that should be enforced by Istio RBAC policies. Note: This field have
 	// effect only when mode is ON_WITH_INCLUSION and will be ignored for any other modes.
-	Inclusion *RbacConfigTarget `json:"inclusion,omitempty"`
+	Inclusion RbacConfigTarget `json:"inclusion,omitempty"`
 	// A list of services or namespaces that should not be enforced by Istio RBAC policies. Note: This field have
 	// effect only when mode is ON_WITH_EXCLUSION and will be ignored for any other modes.
-	Exclusion *RbacConfigTarget `json:"exclusion,omitempty"`
+	Exclusion RbacConfigTarget `json:"exclusion,omitempty"`
 
 	EnforcementMode EnforcementMode `json:"enforcementMode,omitempty"`
 }
