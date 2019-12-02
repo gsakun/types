@@ -2,7 +2,7 @@ package v1alpha1
 
 import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	cmv1alpha1 "github.com/rancher/types/pkg/istio/apis/common/v1alpha1"
+	//cmv1alpha1 "github.com/rancher/types/pkg/istio/apis/common/v1alpha1"
 )
 
 //
@@ -150,7 +150,7 @@ type TargetSelector struct {
 	Ports                []PortSelector `json:"ports,omitempty"`
 }
 
-/*
+
 // Describes how to match a given string. Match is case-sensitive.
 type StringMatch struct {
 	// Types that are valid to be assigned to MatchType:
@@ -163,18 +163,18 @@ type StringMatch struct {
 	Suffix  string   `json:"suffix,omitempty"`
 	Regex   string   `json:"regex,omitempty"`
 }
-*/
+
 
 // Trigger rule to match against a request. The trigger rule is satisfied if
 // and only if both rules, excluded_paths and include_paths are satisfied.
 type JwtTriggerRule struct {
 	// List of paths to be excluded from the request. The rule is satisfied if
 	// request path does not match to any of the path in this list.
-	ExcludedPaths []cmv1alpha1.StringMatch `protobuf:"bytes,1,rep,name=excluded_paths,json=excludedPaths,proto3" json:"excludedPaths,omitempty"`
+	ExcludedPaths []StringMatch `protobuf:"bytes,1,rep,name=excluded_paths,json=excludedPaths,proto3" json:"excludedPaths,omitempty"`
 	// List of paths that the request must include. If the list is not empty, the
 	// rule is satisfied if request path matches at least one of the path in the list.
 	// If the list is empty, the rule is ignored, in other words the rule is always satisfied.
-	IncludedPaths        []cmv1alpha1.StringMatch `protobuf:"bytes,2,rep,name=included_paths,json=includedPaths,proto3" json:"includedPaths,omitempty"`
+	IncludedPaths        []StringMatch `protobuf:"bytes,2,rep,name=included_paths,json=includedPaths,proto3" json:"includedPaths,omitempty"`
 }
 
 // JSON Web Token (JWT) token format for authentication as defined by
