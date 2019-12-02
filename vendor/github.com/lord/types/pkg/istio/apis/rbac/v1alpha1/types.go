@@ -61,9 +61,9 @@ const (
 
 
 type RbacConfig struct {
-	v1.TypeMeta `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 	// +optional
-	v1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 
 	// Spec defines the implementation of this definition.
 	// +optional
@@ -72,26 +72,26 @@ type RbacConfig struct {
 
 // RbacConfigList is a collection of RbacConfigs.
 type RbacConfigList struct {
-	v1.TypeMeta `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 	// +optional
-	v1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items       []RbacConfig `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
 
 // ClusterRbacConfigList is a collection of ClusterRbacConfigs.
 type ClusterRbacConfigList struct {
-	v1.TypeMeta `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 	// +optional
-	v1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items       []ClusterRbacConfig `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
 
 // ServiceRole specification contains a list of access rules (permissions).
 
 type ServiceRole struct {
-	v1.TypeMeta `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 	// +optional
-	v1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 
 	// Spec defines the implementation of this definition.
 	// +optional
@@ -167,16 +167,16 @@ type AccessRule_Constraint struct {
 
 // ServiceRoleList is a collection of ServiceRoles.
 type ServiceRoleList struct {
-	v1.TypeMeta `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 	// +optional
-	v1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items       []ServiceRole `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
 
 type ServiceRoleBinding struct {
-	v1.TypeMeta `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 	// +optional
-	v1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 
 	// Spec defines the implementation of this definition.
 	// +optional
@@ -185,9 +185,9 @@ type ServiceRoleBinding struct {
 
 // ServiceRoleBindingList is a collection of ServiceRoleBindings.
 type ServiceRoleBindingList struct {
-	v1.TypeMeta `json:",inline"`
+	metav1.TypeMeta `json:",inline"`
 	// +optional
-	v1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items       []ServiceRoleBinding `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
 
