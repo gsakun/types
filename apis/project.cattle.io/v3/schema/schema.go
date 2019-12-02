@@ -3,7 +3,7 @@ package schema
 import (
 	"net/http"
     
-    istioauthnv1alphav1 "github.com/rancher/types/pkg/istio/apis/authentication/v1alpha1"
+    //istioauthnv1alphav1 "github.com/rancher/types/pkg/istio/apis/authentication/v1alpha1"
 	//istiorbacv1alphav1 "github.com/rancher/types/pkg/istio/apis/rbac/v1alpha1"
 	monitoringv1 "github.com/coreos/prometheus-operator/pkg/client/monitoring/v1"
 	istiov1alpha3 "github.com/knative/pkg/apis/istio/v1alpha3"
