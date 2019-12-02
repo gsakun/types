@@ -48,8 +48,9 @@ var (
 		Init(appTypes).
 		Init(pipelineTypes).
 		Init(monitoringTypes).
-		Init(istioTypes).
-		Init(applicationTypes)
+		Init(istioNetworkingTypes).
+		Init(applicationTypes).
+		Init(istioRbacTypes)
 )
 
 func configMapTypes(schemas *types.Schemas) *types.Schemas {
@@ -1026,7 +1027,7 @@ func monitoringTypes(schemas *types.Schemas) *types.Schemas {
 		MustImport(&Version, monitoringv1.Alertmanager{}, projectOverride{})
 }
 
-func istioTypes(schemas *types.Schemas) *types.Schemas {
+func istioNetworkingTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
 		MustImport(&Version, istiov1alpha3.HTTPMatchRequest{}, struct {
 			Port *uint32 `json:"port,omitempty"`
@@ -1042,7 +1043,11 @@ func istioTypes(schemas *types.Schemas) *types.Schemas {
 		}{}).
 		MustImport(&Version, istiov1alpha3.Gateway{}, projectOverride{}, struct {
 			Status interface{}
-		}{}).
+		}{})
+}
+
+func istioRbacTypes (schemas *types.Schemas) *types.Schemas {
+	return schemas.
 		MustImport(&Version, istiorbacv1alphav1.ClusterRbacConfig{}, projectOverride{}, struct {
 			Status interface{}
 		}{})
@@ -1058,8 +1063,6 @@ func istioTypes(schemas *types.Schemas) *types.Schemas {
 			Status interface{}
 		}{}).
 		*/
-		
-		
 }
 
 func applicationTypes(schemas *types.Schemas) *types.Schemas {
