@@ -25,16 +25,7 @@ import (
 //   inclusion:
 //     namespaces: [ "default" ]
 // ```
-//
-// <!-- go code generation tags
-// +kubetype-gen
-// +kubetype-gen:groupVersion=rbac.istio.io/v1alpha1
-// +kubetype-gen:kubeType=RbacConfig
-// +kubetype-gen:kubeType=ClusterRbacConfig
-// +kubetype-gen:ClusterRbacConfig:tag=genclient:nonNamespaced
-// +genclient
-// +k8s:deepcopy-gen=true
-// -->
+
 type RbacConfig struct {
 	v1.TypeMeta `json:",inline"`
 	// +optional
@@ -127,10 +118,6 @@ type RbacConfigSpec struct {
 	EnforcementMode EnforcementMode `protobuf:"varint,4,opt,name=enforcement_mode,json=enforcementMode,proto3,enum=istio.rbac.v1alpha1.EnforcementMode" json:"enforcementMode,omitempty"`
 }
 
-//
-// +genclient:nonNamespaced
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
 // RbacConfig implements the ClusterRbacConfig Custom Resource Definition for controlling Istio RBAC behavior.
 // The ClusterRbacConfig Custom Resource is a singleton where only one ClusterRbacConfig should be created
 // globally in the mesh and the namespace should be the same to other Istio components, which usually is `istio-system`.
@@ -160,6 +147,7 @@ type ClusterRbacConfig struct {
 	Spec RbacConfigSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
 
+/*
 // ClusterRbacConfigList is a collection of ClusterRbacConfigs.
 type ClusterRbacConfigList struct {
 	v1.TypeMeta `json:",inline"`
@@ -167,18 +155,12 @@ type ClusterRbacConfigList struct {
 	v1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items       []ClusterRbacConfig `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
-
+*/
 //
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // ServiceRole specification contains a list of access rules (permissions).
-//
-// <!-- go code generation tags
-// +kubetype-gen
-// +kubetype-gen:groupVersion=rbac.istio.io/v1alpha1
-// +genclient
-// +k8s:deepcopy-gen=true
-// -->
+
 type ServiceRole struct {
 	v1.TypeMeta `json:",inline"`
 	// +optional
