@@ -210,7 +210,7 @@ type ServiceRole struct {
 }
 
 type ServiceRoleSpec struct {
-	Rules []*AccessRule `protobuf:"bytes,1,rep,name=rules,proto3" json:"rules,omitempty"`
+	Rules []AccessRule `protobuf:"bytes,1,rep,name=rules,proto3" json:"rules,omitempty"`
 }
 
 type AccessRule struct {
@@ -263,7 +263,7 @@ type AccessRule struct {
 	// Note: It's an error to set ports and not_ports at the same time.
 	NotPorts []int32 `protobuf:"varint,10,rep,packed,name=not_ports,json=notPorts,proto3" json:"not_ports,omitempty"`
 	// Optional. Extra constraints in the ServiceRole specification.
-	Constraints []*AccessRule_Constraint `protobuf:"bytes,4,rep,name=constraints,proto3" json:"constraints,omitempty"`
+	Constraints []AccessRule_Constraint `protobuf:"bytes,4,rep,name=constraints,proto3" json:"constraints,omitempty"`
 }
 
 type AccessRule_Constraint struct {
@@ -319,14 +319,14 @@ type ServiceRoleBindingList struct {
 
 type ServiceRoleBindingSpec struct {
 	// List of subjects that are assigned the ServiceRole object.
-	Subjects []*Subject `protobuf:"bytes,1,rep,name=subjects,proto3" json:"subjects,omitempty"`
+	Subjects []Subject `protobuf:"bytes,1,rep,name=subjects,proto3" json:"subjects,omitempty"`
 	// Reference to the ServiceRole object.
-	RoleRef *RoleRef `protobuf:"bytes,2,opt,name=roleRef,proto3" json:"roleRef,omitempty"`
+	RoleRef RoleRef `protobuf:"bytes,2,opt,name=roleRef,proto3" json:"roleRef,omitempty"`
 	// $hide_from_docs
 	// Indicates enforcement mode of the ServiceRoleBinding.
 	Mode EnforcementMode `protobuf:"varint,3,opt,name=mode,proto3,enum=istio.rbac.v1alpha1.EnforcementMode" json:"mode,omitempty"`
 
-	Actions []*AccessRule `protobuf:"bytes,4,rep,name=actions,proto3" json:"actions,omitempty"`
+	Actions []AccessRule `protobuf:"bytes,4,rep,name=actions,proto3" json:"actions,omitempty"`
 
 	Role string `protobuf:"bytes,5,opt,name=role,proto3" json:"role,omitempty"`
 }

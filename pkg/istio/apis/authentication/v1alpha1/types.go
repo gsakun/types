@@ -147,7 +147,7 @@ type TargetSelector struct {
 	//     app: backend
 	// ```
 	//Leave empty to match all ports that are exposed.
-	Ports                []*PortSelector `json:"ports,omitempty"`
+	Ports                []PortSelector `json:"ports,omitempty"`
 }
 
 /*
@@ -170,11 +170,11 @@ type StringMatch struct {
 type JwtTriggerRule struct {
 	// List of paths to be excluded from the request. The rule is satisfied if
 	// request path does not match to any of the path in this list.
-	ExcludedPaths []*cmv1alpha1.StringMatch `protobuf:"bytes,1,rep,name=excluded_paths,json=excludedPaths,proto3" json:"excludedPaths,omitempty"`
+	ExcludedPaths []cmv1alpha1.StringMatch `protobuf:"bytes,1,rep,name=excluded_paths,json=excludedPaths,proto3" json:"excludedPaths,omitempty"`
 	// List of paths that the request must include. If the list is not empty, the
 	// rule is satisfied if request path matches at least one of the path in the list.
 	// If the list is empty, the rule is ignored, in other words the rule is always satisfied.
-	IncludedPaths        []*cmv1alpha1.StringMatch `protobuf:"bytes,2,rep,name=included_paths,json=includedPaths,proto3" json:"includedPaths,omitempty"`
+	IncludedPaths        []cmv1alpha1.StringMatch `protobuf:"bytes,2,rep,name=included_paths,json=includedPaths,proto3" json:"includedPaths,omitempty"`
 }
 
 // JSON Web Token (JWT) token format for authentication as defined by
@@ -288,7 +288,7 @@ type Jwt struct {
 	// If the list is not empty and none of the rules matched, authentication will
 	// skip the JWT validation.
 	// Leave this empty to always trigger the JWT validation.
-	TriggerRules         []*JwtTriggerRule `protobuf:"bytes,9,rep,name=trigger_rules,json=triggerRules,proto3" json:"triggerRules,omitempty"`
+	TriggerRules         []JwtTriggerRule `protobuf:"bytes,9,rep,name=trigger_rules,json=triggerRules,proto3" json:"triggerRules,omitempty"`
 }
 
 // OriginAuthenticationMethod defines authentication method/params for origin
@@ -312,13 +312,13 @@ const (
 type PolicySpec struct {
 	// List rules to select workloads that the policy should be applied on.
 	// If empty, policy will be used on all workloads in the same namespace.
-	Targets []*TargetSelector `json:"targets,omitempty"`
+	Targets []TargetSelector `json:"targets,omitempty"`
 	// List of authentication methods that can be used for peer authentication.
 	// They will be evaluated in order; the first validate one will be used to
 	// set peer identity (source.user) and other peer attributes. If none of
 	// these methods pass, request will be rejected with authentication failed error (401).
 	// Leave the list empty if peer authentication is not required
-	Peers []*PeerAuthenticationMethod `json:"peers,omitempty"`
+	Peers []PeerAuthenticationMethod `json:"peers,omitempty"`
 	// Set this flag to true to accept request (for peer authentication perspective),
 	// even when none of the peer authentication methods defined above satisfied.
 	// Typically, this is used to delay the rejection decision to next layer (e.g
@@ -333,7 +333,7 @@ type PolicySpec struct {
 	// A method may be skipped, depends on its trigger rule. If all of these methods
 	// are skipped, origin authentication will be ignored, as if it is not defined.
 	// Leave the list empty if origin authentication is not required.
-	Origins []*OriginAuthenticationMethod `json:"origins,omitempty"`
+	Origins []OriginAuthenticationMethod `json:"origins,omitempty"`
 	// Set this flag to true to accept request (for origin authentication perspective),
 	// even when none of the origin authentication methods defined above satisfied.
 	// Typically, this is used to delay the rejection decision to next layer (e.g
