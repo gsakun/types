@@ -3,8 +3,8 @@
 package v1alpha2
 
 import (
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	runtime "k8s.io/apimachinery/pkg/runtime"
+	//v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	//runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 )
 
@@ -21,6 +21,7 @@ const (
 	GroupName = "config.istio.io"
 )
 
+/*
 func Resource(resource string) schema.GroupResource {
 	return SchemeGroupVersion.WithResource(resource).GroupResource()
 }
@@ -47,3 +48,4 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 	v1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil
 }
+*/
