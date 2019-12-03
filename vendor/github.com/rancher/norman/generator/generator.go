@@ -390,22 +390,10 @@ func Generate(schemas *types.Schemas, privateTypes map[string]bool, cattleOutput
 			}
 		}
         
-        /*
 		if privateType ||
 			(contains(schema.CollectionMethods, http.MethodGet) &&
 				!strings.HasPrefix(schema.PkgName, "k8s.io") &&
 				!strings.Contains(schema.PkgName, "/vendor/")) {
-			controllers = append(controllers, schema)
-			if err := generateController(false, k8sDir, schema, schemas); err != nil {
-				return err
-			}
-			if err := generateLifecycle(false, k8sDir, schema, schemas); err != nil {
-				return err
-			}
-		}
-        */
-        
-        if privateType || contains(schema.CollectionMethods, http.MethodGet) {
 			controllers = append(controllers, schema)
 			if err := generateController(false, k8sDir, schema, schemas); err != nil {
 				return err
