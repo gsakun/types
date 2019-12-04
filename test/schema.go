@@ -19,8 +19,7 @@ var (
 
 func applicationTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
-		MustImport(&schema.Version, v3.Port{}).
-		MustImport(&schema.Version, v3.Container{}).
+		MustImport(&schema.Version, v3.ComponentContainer{}).
 		MustImport(&schema.Version, v3.Component{}).
         MustImport(&schema.Version, v3.Application{}, projectOverride{})
 }
