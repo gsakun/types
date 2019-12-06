@@ -368,9 +368,9 @@ func (in *ApplicationStatus) DeepCopyInto(out *ApplicationStatus) {
 	*out = *in
 	if in.ComponentResource != nil {
 		in, out := &in.ComponentResource, &out.ComponentResource
-		*out = make([]ComponentResources, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
+		*out = make(map[string]ComponentResources, len(*in))
+		for key, val := range *in {
+			(*out)[key] = *val.DeepCopy()
 		}
 	}
 	return

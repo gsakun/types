@@ -6,5 +6,5 @@ const (
 )
 
 type ApplicationStatus struct {
-	ComponentResource []ComponentResources `json:"componentResource,omitempty" yaml:"componentResource,omitempty"`
+	ComponentResource map[string]ComponentResources `json:"componentResource,omitempty" yaml:"componentResource,omitempty"`
 }

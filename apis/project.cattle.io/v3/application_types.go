@@ -43,7 +43,7 @@ type WhiteList struct {
 type Ingress struct {
 	Host       string `json:"host"`
 	Path       string `json:"path,omitempty"`
-	ServerPort int32    `json:"serverPort"`
+	ServerPort int32  `json:"serverPort"`
 }
 
 type VolumeMounter struct {
@@ -109,7 +109,7 @@ type EnvVar struct {
 
 type Port struct {
 	Name          string `json:"name"`
-	ContainerPort int32    `json:"containerPort"`
+	ContainerPort int32  `json:"containerPort"`
 	Protocol      string `json:"protocol"`
 }
 
@@ -240,7 +240,7 @@ type ExecAction struct {
 type PullPolicy string
 
 type ApplicationStatus struct {
-	ComponentResource  map[string]ComponentResources `json:"componentResource,omitempty"`
+	ComponentResource map[string]ComponentResources `json:"componentResource,omitempty"`
 }
 
 type ComponentResources struct {
