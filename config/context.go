@@ -23,6 +23,9 @@ import (
 	projectv3 "github.com/rancher/types/apis/project.cattle.io/v3"
 	projectSchema "github.com/rancher/types/apis/project.cattle.io/v3/schema"
 	rbacv1 "github.com/rancher/types/apis/rbac.authorization.k8s.io/v1"
+	istioauthnv1alpha1 "github.com/rancher/types/apis/authentication.istio.io/v1alpha1"
+	istionetworkingv1alph3 "github.com/rancher/types/apis/networking.istio.io/v1alpha3"
+	istiorbacv1alpha1 "github.com/rancher/types/apis/rbac.istio.io/v1alpha1"
 	"github.com/rancher/types/config/dialer"
 	"github.com/rancher/types/peermanager"
 	"github.com/rancher/types/user"
@@ -238,6 +241,10 @@ type UserOnlyContext struct {
 	BatchV1Beta1 batchv1beta1.Interface
 	Monitoring   monitoringv1.Interface
 	Cluster      clusterv3.Interface
+	IstioRbac    istiorbacv1alpha1.Interface
+	IstioAuthn   istioauthnv1alpha1.Interface
+	IstioNetworking istionetworkingv1alph3.Interface
+	
 }
 
 func (w *UserOnlyContext) controllers() []controller.Starter {
@@ -475,7 +482,22 @@ func NewUserOnlyContext(config rest.Config) (*UserOnlyContext, error) {
 	if err != nil {
 		return nil, err
 	}
-
+	
+    context.IstioAuthn, err = istioauthnv1alpha1.NewForConfig(config)
+    if err != nil {
+		return nil, err
+	}
+    
+    context.IstioNetworking, err = istionetworkingv1alph3.NewForConfig(config)
+    if err != nil {
+		return nil, err
+	}
+    
+    context.IstioRbac, err = istiorbacv1alpha1.NewForConfig(config)
+    if err != nil {
+		return nil, err
+	}
+    
 	dynamicConfig := config
 	if dynamicConfig.NegotiatedSerializer == nil {
 		dynamicConfig.NegotiatedSerializer = dynamic.NegotiatedSerializer
