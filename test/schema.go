@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	Schemas = factory.Schemas(&mgtschema.Version).
-		Init(oamTypes)
+	Schemas = factory.Schemas(&schema.Version).
+		Init(applicationTypes)
 )
 
 func applicationTypes(schemas *types.Schemas) *types.Schemas {
@@ -34,6 +34,5 @@ func oamTypes(schemas *types.Schemas) *types.Schemas {
 	return schemas.
 		MustImport(&mgtschema.Version, mgtv3.ApplicationConfigurationTemplate{}).
 		MustImport(&mgtschema.Version, v3.Component{}).
-		MustImport(&mgtschema.Version, v3.Container{}).
-		MustImport(&mgtschema.Version, v3.Port{})
+		MustImport(&mgtschema.Version, v3.ComponentContainer{})
 }

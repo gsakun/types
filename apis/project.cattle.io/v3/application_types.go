@@ -1,8 +1,6 @@
 package v3
 
 import (
-	"reflect"
-	
 	"github.com/rancher/norman/types"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -42,7 +40,7 @@ type WhiteList struct {
 	Users []string `json:"users,omitempty"`
 }
 
-type Ingress struct {
+type AppIngress struct {
 	Host       string `json:"host"`
 	Path       string `json:"path,omitempty"`
 	ServerPort int32  `json:"serverPort"`
@@ -60,7 +58,7 @@ type ManualScaler struct {
 type ComponentTraitsForOpt struct {
 	ManualScaler  ManualScaler  `json:"manualScaler,omitempty"`
 	VolumeMounter VolumeMounter `json:"volumeMounter,omitempty"`
-	Ingress       Ingress       `json:"ingress,omitempty"`
+	Ingress       AppIngress       `json:"ingress,omitempty"`
 	WhiteList     WhiteList     `json:"whiteList,omitempty"`
 }
 
