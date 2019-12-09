@@ -9,7 +9,7 @@ const (
 )
 
 type ComponentTraitsForOpt struct {
-	Ingress       *Ingress       `json:"ingress,omitempty" yaml:"ingress,omitempty"`
+	Ingress       *AppIngress    `json:"ingress,omitempty" yaml:"ingress,omitempty"`
 	ManualScaler  *ManualScaler  `json:"manualScaler,omitempty" yaml:"manualScaler,omitempty"`
 	VolumeMounter *VolumeMounter `json:"volumeMounter,omitempty" yaml:"volumeMounter,omitempty"`
 	WhiteList     *WhiteList     `json:"whiteList,omitempty" yaml:"whiteList,omitempty"`

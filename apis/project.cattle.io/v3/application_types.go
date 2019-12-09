@@ -58,7 +58,7 @@ type ManualScaler struct {
 type ComponentTraitsForOpt struct {
 	ManualScaler  ManualScaler  `json:"manualScaler,omitempty"`
 	VolumeMounter VolumeMounter `json:"volumeMounter,omitempty"`
-	Ingress       AppIngress       `json:"ingress,omitempty"`
+	Ingress       AppIngress    `json:"ingress,omitempty"`
 	WhiteList     WhiteList     `json:"whiteList,omitempty"`
 }
 
