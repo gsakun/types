@@ -107,10 +107,10 @@ type EnvVar struct {
 	FromParam string `json:"fromParam"`
 }
 
-type Port struct {
-	Name          string `json:"name"`
+type AppPort struct {
+	Name          string `json:"name,omitempty"`
 	ContainerPort int32  `json:"containerPort"`
-	Protocol      string `json:"protocol"`
+	Protocol      string `json:"protocol,omitempty"`
 }
 
 type ComponentContainer struct {
@@ -122,7 +122,7 @@ type ComponentContainer struct {
 
 	Args []string `json:"args,omitempty"`
 
-	Ports []Port `json:"ports,omitempty"`
+	Ports []AppPort `json:"ports,omitempty"`
 
 	Env []EnvVar `json:"env,omitempty"`
 
