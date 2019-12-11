@@ -27,7 +27,7 @@ type ComponentContainer struct {
 	ImagePullSecret string           `json:"imagePullSecret,omitempty" yaml:"imagePullSecret,omitempty"`
 	LivenessProbe   *HealthProbe     `json:"livenessProbe,omitempty" yaml:"livenessProbe,omitempty"`
 	Name            string           `json:"name,omitempty" yaml:"name,omitempty"`
-	Ports           []Port           `json:"ports,omitempty" yaml:"ports,omitempty"`
+	Ports           []AppPort        `json:"ports,omitempty" yaml:"ports,omitempty"`
 	ReadinessProbe  *HealthProbe     `json:"readinessProbe,omitempty" yaml:"readinessProbe,omitempty"`
 	Resources       *CResource       `json:"resources,omitempty" yaml:"resources,omitempty"`
 	SecurityContext *SecurityContext `json:"securityContext,omitempty" yaml:"securityContext,omitempty"`
