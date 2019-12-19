@@ -58,7 +58,7 @@ type ManualScaler struct {
 type ComponentTraitsForOpt struct {
 	ManualScaler  ManualScaler  `json:"manualScaler,omitempty"`
 	VolumeMounter VolumeMounter `json:"volumeMounter,omitempty"`
-	Ingress       AppIngress    `json:"ingress,omitempty"`
+	Ingress       AppIngress    `json:"ingress"`
 	WhiteList     WhiteList     `json:"whiteList,omitempty"`
 }
 
@@ -76,7 +76,7 @@ type ImagePullConfig struct {
 }
 
 type ComponentTraitsForDev struct {
-	ImagePullConfig ImagePullConfig `json:"imagePullConfig,omitempty"`
+	ImagePullConfig ImagePullConfig `json:"imagePullConfig"`
 	StaticIP        bool            `json:"staticIP,omitempty"`
 	IngressLB       IngressLB       `json:"ingressLB,omitempty"`
 }
@@ -143,7 +143,7 @@ type WorkloadType string
 
 type Component struct {
 	Name       string      `json:"name"`
-	Version    string      `json:"version,omitempty"`
+	Version    string      `json:"version"`
 	Parameters []Parameter `json:"parameters,omitempty"`
 
 	WorkloadType WorkloadType `json:"workloadType"`
@@ -156,7 +156,7 @@ type Component struct {
 
 	WorkloadSettings []WorkloadSetting `json:"workloadSetings,omitempty"`
 
-	DevTraits ComponentTraitsForDev `json:"devTraits,omitempty"`
+	DevTraits ComponentTraitsForDev `json:"devTraits"`
 	OptTraits ComponentTraitsForOpt `json:"optTraits,omitempty"`
 }
 
