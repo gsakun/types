@@ -65,14 +65,14 @@ type ComponentTraitsForOpt struct {
 }
 
 type RateLimit struct {
-	TimeDuration   string      `json:"timeDuration"`
-	RequestAmount  int32       `json:"requestAmount"`
-	Overrides      []Override  `json:"overrides,omitempty"`
+	TimeDuration  string     `json:"timeDuration"`
+	RequestAmount int32      `json:"requestAmount"`
+	Overrides     []Override `json:"overrides,omitempty"`
 }
 
 type Override struct {
-	RequestAmount  int32       `json:"requestAmount"`
-	User           string      `json:"user"`
+	RequestAmount int32  `json:"requestAmount"`
+	User          string `json:"user"`
 }
 
 //负载均衡类型 rr;leastConn;random
