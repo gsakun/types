@@ -6,9 +6,7 @@ import (
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// +genclient
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
+/*
 type AttributeManifest struct {
 	v1.TypeMeta `json:",inline"`
 	// +optional
@@ -19,8 +17,6 @@ type AttributeManifest struct {
 	Spec v1beta1.AttributeManifest `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
 
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
 // AttributeManifestList is a collection of AttributeManifests.
 type AttributeManifestList struct {
 	v1.TypeMeta `json:",inline"`
@@ -28,9 +24,6 @@ type AttributeManifestList struct {
 	v1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 	Items       []AttributeManifest `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
-
-// +genclient
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type HTTPAPISpec struct {
 	v1.TypeMeta `json:",inline"`
@@ -42,8 +35,6 @@ type HTTPAPISpec struct {
 	Spec client.HTTPAPISpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
 
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
 // HTTPAPISpecList is a collection of HTTPAPISpecs.
 type HTTPAPISpecList struct {
 	v1.TypeMeta `json:",inline"`
@@ -52,8 +43,6 @@ type HTTPAPISpecList struct {
 	Items       []HTTPAPISpec `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
 
-// +genclient
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // HTTPAPISpecBinding defines the binding between HTTPAPISpecs and one or more
 // IstioService. For example, the following establishes a binding
@@ -68,8 +57,6 @@ type HTTPAPISpecBinding struct {
 	Spec client.HTTPAPISpecBinding `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
 
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
 // HTTPAPISpecBindingList is a collection of HTTPAPISpecBindings.
 type HTTPAPISpecBindingList struct {
 	v1.TypeMeta `json:",inline"`
@@ -83,9 +70,9 @@ type HTTPAPISpecBindingList struct {
 //
 // In the following example we define a `metrics` handler for the `prometheus` adapter.
 // The example is in the form of a Kubernetes resource:
-// * The `metadata.name` is the name of the handler
-// * The `kind` refers to the adapter name
-// * The `spec` block represents adapter-specific configuration as well as the connection information
+//  The `metadata.name` is the name of the handler
+//  The `kind` refers to the adapter name
+//  The `spec` block represents adapter-specific configuration as well as the connection information
 //
 // ```yaml
 // # Sample-1: No connection specified (for compiled in adapters)
@@ -133,7 +120,8 @@ type HTTPAPISpecBindingList struct {
 //       address: localhost:8090
 // ---
 // ```
-//
+*/
+
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
@@ -173,21 +161,26 @@ type HandlerSpec struct {
 type HandlerParams struct {
 	RedisServerUrl string `json:"redisServerUrl,omitempty"`
 	ConnectionPoolSize int32 `json:"redisServerUrl,omitempty"`
-	Quotas  []Quota  `json:"quotas,omitempty"`
+	Quotas  []HandlerQuota  `json:"quotas,omitempty"`
 }
 
-type Quota struct {
+type HandlerQuota struct {
 	Name   string  `json:"name"`
 	MaxAmount  int32  `json:"maxAmount"`
 	ValidDuration string `json:"validDuration"`
 	BucketDuration  string  `json:"bucketDuration"`
 	RateLimitAlgorithm RateLimitAlgorithm `json:"rateLimitAlgorithm"`
+	Overrides []Override `json:"overrides,omitempty"`
 }
 
+type Override struct{
+	Dimensions map[string]string  `json:"dimensions"`
+	MaxAmount  int32  `json:"maxAmount"`
+}
 type RateLimitAlgorithm string
 
 const (
-	ROLLING RateLimitAlgorithm = ROLLING_WINDOW
+	ROLLING RateLimitAlgorithm = "ROLLING_WINDOW"
 )
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -220,7 +213,8 @@ type HandlerList struct {
 //       destination_ip: destination.ip
 // ```
 
-
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // An Instance tells Mixer how to create instances for particular template.
 type Instance struct {
 	v1.TypeMeta `json:",inline"`
@@ -228,10 +222,48 @@ type Instance struct {
 	v1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 
 	// Spec defines the implementation of this definition.
-	// +optional
-	Spec v1beta1.Instance `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
+	Spec InstanceSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
 
+type InstanceSpec struct {
+	// The name of this instance
+	//
+	// Must be unique amongst other Instances in scope. Used by [Action][istio.policy.v1beta1.Action] to refer
+	// to an instance produced by this instance.
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// The name of the compiled in template this instance creates instances for. For referencing non compiled-in
+	// templates, use the `template` field instead.
+	//
+	// The value must match the name of the available template Mixer is built with.
+	CompiledTemplate string `protobuf:"bytes,67794676,opt,name=compiled_template,json=compiledTemplate,proto3" json:"compiled_template,omitempty"`
+	// The name of the template this instance creates instances for. For referencing compiled-in
+	// templates, use the `compiled_template` field instead.
+	//
+	// The value must match the name of the available template in scope.
+	Template string `protobuf:"bytes,2,opt,name=template,proto3" json:"template,omitempty"`
+	// Depends on referenced template. Struct representation of a
+	// proto defined by the template; this varies depending on the value of field `template`.
+	Params InstanceParams `protobuf:"bytes,3,opt,name=params,proto3" json:"params,omitempty"`
+	// Defines attribute bindings to map the output of attribute-producing adapters back into
+	// the attribute space. The variable `output` refers to the output template instance produced
+	// by the adapter.
+	// The following example derives `source.namespace` from `source.uid` in the context of Kubernetes:
+	// ```yaml
+	// params:
+	//   # Pass the required attribute data to the adapter
+	//   source_uid: source.uid | ""
+	// attribute_bindings:
+	//   # Fill the new attributes from the adapter produced output
+	//   source.namespace: output.source_namespace
+	// ```
+	AttributeBindings map[string]string `protobuf:"bytes,4,rep,name=attribute_bindings,json=attributeBindings,proto3" json:"attribute_bindings,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+}
+
+type InstanceParams struct {
+	Dimensions map[string]string  `json:"dimensions"`
+}
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // InstanceList is a collection of Instances.
 type InstanceList struct {
@@ -241,6 +273,8 @@ type InstanceList struct {
 	Items       []Instance `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
 
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Determines the quotas used for individual requests.
 type QuotaSpec struct {
@@ -250,9 +284,49 @@ type QuotaSpec struct {
 
 	// Spec defines the implementation of this definition.
 	// +optional
-	Spec client.QuotaSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
+	Spec QuotaSubSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
 
+type QuotaSubSpec struct {
+	Rules []*QuotaRule `protobuf:"bytes,1,rep,name=rules,proto3" json:"rules,omitempty"`
+}
+
+type QuotaRule struct {
+	// If empty, match all request.
+	// If any of match is true, it is matched.
+	Match []*AttributeMatch `protobuf:"bytes,1,rep,name=match,proto3" json:"match,omitempty"`
+	// The list of quotas to charge.
+	Quotas []*Quota `protobuf:"bytes,2,rep,name=quotas,proto3" json:"quotas,omitempty"`
+}
+
+type AttributeMatch struct {
+	// Map of attribute names to StringMatch type.
+	// Each map element specifies one condition to match.
+	//
+	// Example:
+	//
+	//   clause:
+	//     source.uid:
+	//       exact: SOURCE_UID
+	//     request.http_method:
+	//       exact: POST
+	Clause map[string]*StringMatch `protobuf:"bytes,1,rep,name=clause,proto3" json:"clause,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+}
+
+type StringMatch struct {
+	Exact    string `json:"exact,omitempty"`
+	Prefix   string `json:"prefix,omitempty"`
+	Regex    string `json:"regex,omitempty"`
+}
+
+type Quota struct {
+	// The quota name to charge
+	Quota string `protobuf:"bytes,1,opt,name=quota,proto3" json:"quota,omitempty"`
+	// The quota amount to charge
+	Charge int32 `protobuf:"varint,2,opt,name=charge,proto3" json:"charge,omitempty"`
+}
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // QuotaSpecList is a collection of QuotaSpecs.
 type QuotaSpecList struct {
@@ -276,17 +350,12 @@ type QuotaSpecBinding struct {
 }
 
 type QuotaSpecBindingSpec struct {
-	Services []*IstioService `json:"services,omitempty"`
-	QuotaSpecs []*QuotaSpecBindingQuotaSpecReference `protobuf:"bytes,2,rep,name=quota_specs,json=quotaSpecs,proto3" json:"quota_specs,omitempty"`
-}
-
-type QuotaSpecBindingQuotaSpecReference struct {
-	// The short name of the QuotaSpec. This is the resource
-	// name defined by the metadata name field.
-	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// Optional namespace of the QuotaSpec. Defaults to the value of the
-	// metadata namespace field.
-	Namespace string `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	// One or more services to map the listed QuotaSpec onto.
+	Services []*IstioService `protobuf:"bytes,1,rep,name=services,proto3" json:"services,omitempty"`
+	// One or more QuotaSpec references that should be mapped to
+	// the specified service(s). The aggregate collection of match
+	// conditions defined in the QuotaSpecs should not overlap.
+	QuotaSpecs []*QuotaSpecBindingQuotaSpecReference `protobuf:"bytes,2,rep,name=quota_specs,json=quotaSpecs,proto3" json:"quotaSpecs,omitempty"`
 }
 
 type IstioService struct {
@@ -303,6 +372,15 @@ type IstioService struct {
 	// *Note:* When used for a VirtualService destination, labels MUST be empty.
 	//
 	Labels map[string]string `protobuf:"bytes,5,rep,name=labels,proto3" json:"labels,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+}
+
+type QuotaSpecBindingQuotaSpecReference struct {
+	// The short name of the QuotaSpec. This is the resource
+	// name defined by the metadata name field.
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// Optional namespace of the QuotaSpec. Defaults to the value of the
+	// metadata namespace field.
+	Namespace string `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -336,8 +414,25 @@ type Rule struct {
 	v1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
 
 	// Spec defines the implementation of this definition.
-	// +optional
-	Spec v1beta1.Rule `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
+	Spec RuleSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
+}
+
+type RuleSpec struct {
+	Match string `protobuf:"bytes,1,opt,name=match,proto3" json:"match,omitempty"`
+	Actions []*Action `protobuf:"bytes,2,rep,name=actions,proto3" json:"actions,omitempty"`
+}
+
+type Action struct {
+	// Fully qualified name of the handler to invoke.
+	// Must match the `name` of a [Handler][istio.policy.v1beta1.Handler.name].
+	Handler string `protobuf:"bytes,2,opt,name=handler,proto3" json:"handler,omitempty"`
+	// Each value must match the fully qualified name of the
+	// [Instance][istio.policy.v1beta1.Instance.name]s.
+	// Referenced instances are evaluated by resolving the attributes/literals for all the fields.
+	// The constructed objects are then passed to the `handler` referenced within this action.
+	Instances []string `protobuf:"bytes,3,rep,name=instances,proto3" json:"instances,omitempty"`
+	// A handle to refer to the results of the action.
+	Name string `protobuf:"bytes,4,opt,name=name,proto3" json:"name,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
