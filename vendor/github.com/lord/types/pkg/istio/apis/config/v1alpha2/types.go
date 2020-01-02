@@ -1,8 +1,6 @@
 package v1alpha2
 
 import (
-	client "istio.io/api/mixer/v1/config/client"
-	v1beta1 "istio.io/api/policy/v1beta1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
