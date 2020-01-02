@@ -28,12 +28,12 @@ func Resource(resource string) schema.GroupResource {
 
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
-		&AttributeManifest{},
-		&AttributeManifestList{},
-		&HTTPAPISpec{},
-		&HTTPAPISpecList{},
-		&HTTPAPISpecBinding{},
-		&HTTPAPISpecBindingList{},
+		//&AttributeManifest{},
+		//&AttributeManifestList{},
+		//&HTTPAPISpec{},
+		//&HTTPAPISpecList{},
+		//&HTTPAPISpecBinding{},
+		//&HTTPAPISpecBindingList{},
 		&Handler{},
 		&HandlerList{},
 		&Instance{},
