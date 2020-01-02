@@ -26,6 +26,7 @@ import (
 	istioauthnv1alpha1 "github.com/rancher/types/apis/authentication.istio.io/v1alpha1"
 	istionetworkingv1alph3 "github.com/rancher/types/apis/networking.istio.io/v1alpha3"
 	istiorbacv1alpha1 "github.com/rancher/types/apis/rbac.istio.io/v1alpha1"
+	istioconfigv1alpha2 "github.com/rancher/types/apis/config.istio.io/v1alpha2"
 	"github.com/rancher/types/config/dialer"
 	"github.com/rancher/types/peermanager"
 	"github.com/rancher/types/user"
@@ -244,7 +245,7 @@ type UserOnlyContext struct {
 	IstioRbac    istiorbacv1alpha1.Interface
 	IstioAuthn   istioauthnv1alpha1.Interface
 	IstioNetworking istionetworkingv1alph3.Interface
-	
+	IstioConfig  istioconfigv1alpha2.Interface
 }
 
 func (w *UserOnlyContext) controllers() []controller.Starter {
@@ -260,6 +261,7 @@ func (w *UserOnlyContext) controllers() []controller.Starter {
 		w.IstioAuthn,
 		w.IstioNetworking,
 		w.IstioRbac,
+		w.IstioConfig,
 	}
 }
 
@@ -497,6 +499,11 @@ func NewUserOnlyContext(config rest.Config) (*UserOnlyContext, error) {
 	}
     
     context.IstioRbac, err = istiorbacv1alpha1.NewForConfig(config)
+    if err != nil {
+		return nil, err
+	}
+    
+    context.IstioConfig, err = istioconfigv1alpha2.NewForConfig(config)
     if err != nil {
 		return nil, err
 	}
