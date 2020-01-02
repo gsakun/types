@@ -119,6 +119,10 @@ func main() {
 	generator.GenerateNativeTypes(istioconfigv1alphav2.SchemeGroupVersion,
 		[]interface{}{
 			istioconfigv1alphav2.Handler{},
+			istioconfigv1alphav2.Instance{},
+			istioconfigv1alphav2.Rule{},
+			istioconfigv1alphav2.QuotaSpec{},
+			istioconfigv1alphav2.QuotaSpecBinding{},
 		},
 		[]interface{}{},
 	)

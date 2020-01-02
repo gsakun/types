@@ -60,12 +60,21 @@ type ComponentTraitsForOpt struct {
 	VolumeMounter VolumeMounter `json:"volumeMounter,omitempty"`
 	Ingress       AppIngress    `json:"ingress"`
 	WhiteList     WhiteList     `json:"whiteList,omitempty"`
-	Eject         []string         `json:"abort,omitempty"`
+	Eject         []string      `json:"eject,omitempty"`
+	RateLimit     RateLimit     `json:"rateLimit,omitempty"`
 }
 
-type Abort struct {
-	Pods   []string  `json:"pods"`
+type RateLimit struct {
+	TimeDuration   string      `json:"timeDuration"`
+	RequestAmount  int32       `json:"requestAmount"`
+	Overrides      []Override  `json:"overrides,omitempty"`
 }
+
+type Override struct {
+	RequestAmount  int32       `json:"requestAmount"`
+	User           string      `json:"user"`
+}
+
 //负载均衡类型 rr;leastConn;random
 //consistentType sourceIP
 type IngressLB struct {
