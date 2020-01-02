@@ -220,8 +220,6 @@ type HandlerList struct {
 //       destination_ip: destination.ip
 // ```
 
-// +genclient
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // An Instance tells Mixer how to create instances for particular template.
 type Instance struct {
@@ -234,7 +232,6 @@ type Instance struct {
 	Spec v1beta1.Instance `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
 
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // InstanceList is a collection of Instances.
 type InstanceList struct {
@@ -244,8 +241,6 @@ type InstanceList struct {
 	Items       []Instance `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
 
-// +genclient
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Determines the quotas used for individual requests.
 type QuotaSpec struct {
@@ -258,7 +253,6 @@ type QuotaSpec struct {
 	Spec client.QuotaSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
 }
 
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // QuotaSpecList is a collection of QuotaSpecs.
 type QuotaSpecList struct {
@@ -278,7 +272,37 @@ type QuotaSpecBinding struct {
 
 	// Spec defines the implementation of this definition.
 	// +optional
-	Spec client.QuotaSpecBinding `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
+	Spec QuotaSpecBindingSpec `json:"spec,omitempty" protobuf:"bytes,2,opt,name=spec"`
+}
+
+type QuotaSpecBindingSpec struct {
+	Services []*IstioService `json:"services,omitempty"`
+	QuotaSpecs []*QuotaSpecBindingQuotaSpecReference `protobuf:"bytes,2,rep,name=quota_specs,json=quotaSpecs,proto3" json:"quota_specs,omitempty"`
+}
+
+type QuotaSpecBindingQuotaSpecReference struct {
+	// The short name of the QuotaSpec. This is the resource
+	// name defined by the metadata name field.
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// Optional namespace of the QuotaSpec. Defaults to the value of the
+	// metadata namespace field.
+	Namespace string `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
+}
+
+type IstioService struct {
+	// The short name of the service such as "foo".
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// Optional namespace of the service. Defaults to value of metadata namespace field.
+	Namespace string `protobuf:"bytes,2,opt,name=namespace,proto3" json:"namespace,omitempty"`
+	// Domain suffix used to construct the service FQDN in implementations that support such specification.
+	Domain string `protobuf:"bytes,3,opt,name=domain,proto3" json:"domain,omitempty"`
+	// The service FQDN.
+	Service string `protobuf:"bytes,4,opt,name=service,proto3" json:"service,omitempty"`
+	// Optional one or more labels that uniquely identify the service version.
+	//
+	// *Note:* When used for a VirtualService destination, labels MUST be empty.
+	//
+	Labels map[string]string `protobuf:"bytes,5,rep,name=labels,proto3" json:"labels,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
