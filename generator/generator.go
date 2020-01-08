@@ -19,7 +19,7 @@ import (
 )
 
 var (
-	basePackage = "github.com/rancher/types"
+	basePackage = "github.com/hd-Li/types"
 	baseCattle  = "client"
 	baseK8s     = "apis"
 	baseCompose = "compose"

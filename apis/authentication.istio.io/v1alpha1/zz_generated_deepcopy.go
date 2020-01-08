@@ -1,7 +1,7 @@
 package v1alpha1
 
 import (
-	authenticationv1alpha1 "github.com/lord/types/pkg/istio/apis/authentication/v1alpha1"
+	authenticationv1alpha1 "github.com/hd-Li/types/pkg/istio/apis/authentication/v1alpha1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 

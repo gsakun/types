@@ -1,9 +1,9 @@
 package compose
 
 import (
-	clusterClient "github.com/rancher/types/client/cluster/v3"
-	managementClient "github.com/rancher/types/client/management/v3"
-	projectClient "github.com/rancher/types/client/project/v3"
+	clusterClient "github.com/hd-Li/types/client/cluster/v3"
+	managementClient "github.com/hd-Li/types/client/management/v3"
+	projectClient "github.com/hd-Li/types/client/project/v3"
 )
 
 type Config struct {

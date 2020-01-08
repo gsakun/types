@@ -1,7 +1,7 @@
 package v3
 
 import (
-	projectcattleiov3 "github.com/rancher/types/apis/project.cattle.io/v3"
+	projectcattleiov3 "github.com/hd-Li/types/apis/project.cattle.io/v3"
 	v1 "k8s.io/api/core/v1"
 	rbacv1 "k8s.io/api/rbac/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"

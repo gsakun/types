@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	projectv3 "github.com/rancher/types/apis/project.cattle.io/v3"
-	"github.com/rancher/types/image"
+	projectv3 "github.com/hd-Li/types/apis/project.cattle.io/v3"
+	"github.com/hd-Li/types/image"
 )
 
 const (

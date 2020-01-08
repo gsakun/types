@@ -3,7 +3,7 @@ package v1alpha1
 import (
 	"context"
 
-	"github.com/lord/types/pkg/istio/apis/rbac/v1alpha1"
+	"github.com/hd-Li/types/pkg/istio/apis/rbac/v1alpha1"
 	"github.com/rancher/norman/controller"
 	"github.com/rancher/norman/objectclient"
 	"k8s.io/apimachinery/pkg/api/errors"

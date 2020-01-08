@@ -11,7 +11,7 @@ RUN go get -d golang.org/x/tools/cmd/goimports && \
     rm -rf /go/src /go/pkg
 
 ENV DAPPER_ENV REPO TAG DRONE_TAG
-ENV DAPPER_SOURCE /go/src/github.com/rancher/types/
+ENV DAPPER_SOURCE /go/src/github.com/hd-Li/types/
 ENV DAPPER_OUTPUT ./bin ./dist
 ENV DAPPER_DOCKER_SOCKET true
 ENV HOME ${DAPPER_SOURCE}

@@ -3,7 +3,7 @@ package v1alpha2
 import (
 	"context"
 
-	"github.com/lord/types/pkg/istio/apis/config/v1alpha2"
+	"github.com/hd-Li/types/pkg/istio/apis/config/v1alpha2"
 	"github.com/rancher/norman/controller"
 	"github.com/rancher/norman/objectclient"
 	"k8s.io/apimachinery/pkg/api/errors"

@@ -3,8 +3,8 @@ package schema
 import (
 	"github.com/rancher/norman/types"
 	m "github.com/rancher/norman/types/mapper"
-	v3 "github.com/rancher/types/apis/cluster.cattle.io/v3"
-	"github.com/rancher/types/factory"
+	v3 "github.com/hd-Li/types/apis/cluster.cattle.io/v3"
+	"github.com/hd-Li/types/factory"
 	v1 "k8s.io/api/core/v1"
 	storagev1 "k8s.io/api/storage/v1"
 )

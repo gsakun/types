@@ -1,7 +1,7 @@
 package v3
 
 import (
-	projectv3 "github.com/rancher/types/apis/project.cattle.io/v3"
+	projectv3 "github.com/hd-Li/types/apis/project.cattle.io/v3"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

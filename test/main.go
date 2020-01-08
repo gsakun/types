@@ -6,9 +6,9 @@ import (
 	"encoding/json"
 	"reflect"
 	"strings"
-	//managementSchema "github.com/rancher/types/apis/management.cattle.io/v3/schema"
+	//managementSchema "github.com/hd-Li/types/apis/management.cattle.io/v3/schema"
 	//"k8s.io/apimachinery/pkg/apis/meta/v1"
-	"github.com/rancher/types/apis/management.cattle.io/v3"
+	"github.com/hd-Li/types/apis/management.cattle.io/v3"
 	"github.com/rancher/norman/types/convert"
 )
 

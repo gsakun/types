@@ -4,9 +4,9 @@ import (
 	"net/http"
 
 	"github.com/rancher/norman/types"
-	v3 "github.com/rancher/types/apis/management.cattle.io/v3"
-	"github.com/rancher/types/apis/management.cattle.io/v3public"
-	"github.com/rancher/types/factory"
+	v3 "github.com/hd-Li/types/apis/management.cattle.io/v3"
+	"github.com/hd-Li/types/apis/management.cattle.io/v3public"
+	"github.com/hd-Li/types/factory"
 )
 
 var (

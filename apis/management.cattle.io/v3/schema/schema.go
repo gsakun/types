@@ -5,10 +5,10 @@ import (
 
 	"github.com/rancher/norman/types"
 	m "github.com/rancher/norman/types/mapper"
-	v3 "github.com/rancher/types/apis/management.cattle.io/v3"
-	projectv3 "github.com/rancher/types/apis/project.cattle.io/v3"
-	"github.com/rancher/types/factory"
-	"github.com/rancher/types/mapper"
+	v3 "github.com/hd-Li/types/apis/management.cattle.io/v3"
+	projectv3 "github.com/hd-Li/types/apis/project.cattle.io/v3"
+	"github.com/hd-Li/types/factory"
+	"github.com/hd-Li/types/mapper"
 	v1 "k8s.io/api/core/v1"
 )
 

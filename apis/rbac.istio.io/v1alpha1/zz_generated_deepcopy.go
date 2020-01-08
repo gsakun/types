@@ -1,7 +1,7 @@
 package v1alpha1
 
 import (
-	rbacv1alpha1 "github.com/lord/types/pkg/istio/apis/rbac/v1alpha1"
+	rbacv1alpha1 "github.com/hd-Li/types/pkg/istio/apis/rbac/v1alpha1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 

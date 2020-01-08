@@ -2,7 +2,7 @@ package mapper
 
 import (
 	"github.com/rancher/norman/types"
-	"github.com/rancher/types/status"
+	"github.com/hd-Li/types/status"
 )
 
 type Status struct {

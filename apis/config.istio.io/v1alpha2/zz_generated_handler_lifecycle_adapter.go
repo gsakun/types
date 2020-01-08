@@ -1,7 +1,7 @@
 package v1alpha2
 
 import (
-	"github.com/lord/types/pkg/istio/apis/config/v1alpha2"
+	"github.com/hd-Li/types/pkg/istio/apis/config/v1alpha2"
 	"github.com/rancher/norman/lifecycle"
 	"k8s.io/apimachinery/pkg/runtime"
 )
