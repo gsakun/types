@@ -61,7 +61,14 @@ type ComponentTraitsForOpt struct {
 	Ingress       AppIngress    `json:"ingress"`
 	WhiteList     WhiteList     `json:"whiteList,omitempty"`
 	Eject         []string      `json:"eject,omitempty"`
+	Fusing        Fusing        `json:"fusing,omitempty"` //zk
 	RateLimit     RateLimit     `json:"rateLimit,omitempty"`
+}
+
+//zk
+type Fusing struct {
+	PodList []string `json:"podlist,omitempty"`
+	Action  string   `json:"action,omitempty"`
 }
 
 type RateLimit struct {

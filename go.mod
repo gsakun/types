@@ -5,10 +5,10 @@ go 1.13
 replace (
 	github.com/matryer/moq => github.com/rancher/moq v0.0.0-20190404221404-ee5226d43009
 	k8s.io/client-go => k8s.io/client-go v9.0.0+incompatible
-        github.com/knative/pkg => github.com/rancher/pkg v0.0.0-20190514055449-b30ab9de040e
-        k8s.io/api => k8s.io/api v0.0.0-20181004124137-fd83cbc87e76
-        k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.0.0-20181004124836-1748dfb29e8a
-        k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20180913025736-6dd46049f395
+	github.com/knative/pkg => github.com/rancher/pkg v0.0.0-20190514055449-b30ab9de040e
+	k8s.io/api => k8s.io/api v0.0.0-20181004124137-fd83cbc87e76
+	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.0.0-20181004124836-1748dfb29e8a
+	k8s.io/apimachinery => k8s.io/apimachinery v0.0.0-20180913025736-6dd46049f395
 )
 
 require (
