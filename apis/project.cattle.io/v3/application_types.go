@@ -41,9 +41,9 @@ type WhiteList struct {
 }
 
 type AppIngress struct {
-	Host       string   `json:"host"`
-	Path       []string `json:"path,omitempty"`
-	ServerPort int32    `json:"serverPort"`
+	Host       string `json:"host"`
+	Path       string `json:"path,omitempty"`
+	ServerPort int32  `json:"serverPort"`
 }
 
 type VolumeMounter struct {
