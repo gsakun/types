@@ -41,9 +41,9 @@ type WhiteList struct {
 }
 
 type AppIngress struct {
-	Host       string `json:"host"`
-	Path       string `json:"path,omitempty"`
-	ServerPort int32  `json:"serverPort"`
+	Host       string   `json:"host"`
+	Path       []string `json:"path,omitempty"`
+	ServerPort int32    `json:"serverPort"`
 }
 
 type VolumeMounter struct {
@@ -205,15 +205,15 @@ type WorkloadSetting struct {
 	FromParam string `json:"fromParam"`
 }
 
+type Handler struct {
+	Exec      *ExecAction      `json:"exec,omitempty" protobuf:"bytes,1,opt,name=exec"`
+	HTTPGet   *HTTPGetAction   `json:"httpGet,omitempty" protobuf:"bytes,2,opt,name=httpGet"`
+	TCPSocket *TCPSocketAction `json:"tcpSocket,omitempty" protobuf:"bytes,3,opt,name=tcpSocket"`
+}
+
 type HealthProbe struct {
-	Exec    *ExecAction    `json:"exec,omitempty" protobuf:"bytes,1,opt,name=exec"`
-	HTTPGet *HTTPGetAction `json:"httpGet,omitempty" protobuf:"bytes,2,opt,name=httpGet"`
-	// TCPSocket specifies an action involving a TCP port.
-	// TCP hooks not yet supported
-	// TODO: implement a realistic TCP lifecycle hook
-	// +optional
-	TCPSocket           *TCPSocketAction `json:"tcpSocket,omitempty" protobuf:"bytes,3,opt,name=tcpSocket"`
-	InitialDelaySeconds int32            `json:"initialDelaySeconds,omitempty" protobuf:"varint,2,opt,name=initialDelaySeconds"`
+	Handler             `json:",inline" protobuf:"bytes,1,opt,name=handler"`
+	InitialDelaySeconds int32 `json:"initialDelaySeconds,omitempty" protobuf:"varint,2,opt,name=initialDelaySeconds"`
 
 	TimeoutSeconds int32 `json:"timeoutSeconds,omitempty" protobuf:"varint,3,opt,name=timeoutSeconds"`
 
