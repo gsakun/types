@@ -56,14 +56,116 @@ type ManualScaler struct {
 }
 
 type ComponentTraitsForOpt struct {
-	ManualScaler  ManualScaler  `json:"manualScaler,omitempty"`
-	VolumeMounter VolumeMounter `json:"volumeMounter,omitempty"`
-	Ingress       AppIngress    `json:"ingress"`
-	WhiteList     WhiteList     `json:"whiteList,omitempty"`
-	Eject         []string      `json:"eject,omitempty"`
-	Fusing        Fusing        `json:"fusing,omitempty"` //zk
-	RateLimit     RateLimit     `json:"rateLimit,omitempty"`
+	ManualScaler    ManualScaler    `json:"manualScaler,omitempty"`
+	VolumeMounter   VolumeMounter   `json:"volumeMounter,omitempty"`
+	Ingress         AppIngress      `json:"ingress"`
+	WhiteList       WhiteList       `json:"whiteList,omitempty"`
+	Eject           []string        `json:"eject,omitempty"`
+	Fusing          Fusing          `json:"fusing,omitempty"` //zk
+	RateLimit       RateLimit       `json:"rateLimit,omitempty"`
+	CircuitBreaking CircuitBreaking `json:"circuitbreaking,omitempty"` //zk
 }
+
+//zk
+type CircuitBreaking struct {
+	LoadBalancer      LoadBalancerSettings   `json:"loadBalancer,omitempty"`
+	ConnectionPool    ConnectionPoolSettings `json:"connectionPool,omitempty"`
+	OutlierDetection  OutlierDetection       `json:"outlierDetection,omitempty"`
+	PortLevelSettings []PortTrafficPolicy    `json:"portLevelSettings,omitempty"`
+}
+
+type ConnectionPoolSettings struct {
+
+	// Settings common to both HTTP and TCP upstream connections.
+	TCP TCPSettings `json:"tcp,omitempty"`
+
+	// HTTP connection pool settings.
+	HTTP HTTPSettings `json:"http,omitempty"`
+}
+
+type PortSelector struct {
+	// Choose one of the fields below.
+
+	// Valid port number
+	Number uint32 `json:"number,omitempty"`
+
+	// Valid port name
+	Name string `json:"name,omitempty"`
+}
+
+type OutlierDetection struct {
+	// Number of errors before a host is ejected from the connection
+	// pool. Defaults to 5. When the upstream host is accessed over HTTP, a
+	// 5xx return code qualifies as an error. When the upstream host is
+	// accessed over an opaque TCP connection, connect timeouts and
+	// connection error/failure events qualify as an error.
+	ConsecutiveErrors int32 `json:"consecutiveErrors,omitempty"`
+
+	// Time interval between ejection sweep analysis. format:
+	// 1h/1m/1s/1ms. MUST BE >=1ms. Default is 10s.
+	Interval string `json:"interval,omitempty"`
+
+	// Minimum ejection duration. A host will remain ejected for a period
+	// equal to the product of minimum ejection duration and the number of
+	// times the host has been ejected. This technique allows the system to
+	// automatically increase the ejection period for unhealthy upstream
+	// servers. format: 1h/1m/1s/1ms. MUST BE >=1ms. Default is 30s.
+	BaseEjectionTime string `json:"baseEjectionTime,omitempty"`
+
+	// Maximum % of hosts in the load balancing pool for the upstream
+	// service that can be ejected. Defaults to 10%.
+	MaxEjectionPercent int32 `json:"maxEjectionPercent,omitempty"`
+}
+
+// Settings common to both HTTP and TCP upstream connections.
+type TCPSettings struct {
+	// Maximum number of HTTP1 /TCP connections to a destination host.
+	MaxConnections int32 `json:"maxConnections,omitempty"`
+
+	// TCP connection timeout.
+	ConnectTimeout string `json:"connectTimeout,omitempty"`
+}
+
+// Settings applicable to HTTP1.1/HTTP2/GRPC connections.
+type HTTPSettings struct {
+	// Maximum number of pending HTTP requests to a destination. Default 1024.
+	HTTP1MaxPendingRequests int32 `json:"http1MaxPendingRequests,omitempty"`
+
+	// Maximum number of requests to a backend. Default 1024.
+	HTTP2MaxRequests int32 `json:"http2MaxRequests,omitempty"`
+
+	// Maximum number of requests per connection to a backend. Setting this
+	// parameter to 1 disables keep alive.
+	MaxRequestsPerConnection int32 `json:"maxRequestsPerConnection,omitempty"`
+
+	// Maximum number of retries that can be outstanding to all hosts in a
+	// cluster at a given time. Defaults to 3.
+	MaxRetries int32 `json:"maxRetries,omitempty"`
+}
+
+type SimpleLB string
+
+const (
+	// Round Robin policy. Default
+	SimpleLBRoundRobin SimpleLB = "ROUND_ROBIN"
+
+	// The least request load balancer uses an O(1) algorithm which selects
+	// two random healthy hosts and picks the host which has fewer active
+	// requests.
+	SimpleLBLeastConn SimpleLB = "LEAST_CONN"
+
+	// The random load balancer selects a random healthy host. The random
+	// load balancer generally performs better than round robin if no health
+	// checking policy is configured.
+	SimpleLBRandom SimpleLB = "RANDOM"
+
+	// This option will forward the connection to the original IP address
+	// requested by the caller without doing any form of load
+	// balancing. This option must be used with care. It is meant for
+	// advanced use cases. Refer to Original Destination load balancer in
+	// Envoy for further details.
+	SimpleLBPassthrough SimpleLB = "PASSTHROUGH"
+)
 
 //zk
 type Fusing struct {
@@ -80,6 +182,24 @@ type RateLimit struct {
 type Override struct {
 	RequestAmount int32  `json:"requestAmount"`
 	User          string `json:"user"`
+}
+
+// Traffic policies that apply to specific ports of the service
+type PortTrafficPolicy struct {
+	Port             PortSelector           `json:"port"`
+	LoadBalancer     LoadBalancerSettings   `json:"loadBalancer,omitempty"`
+	ConnectionPool   ConnectionPoolSettings `json:"connectionPool,omitempty"`
+	OutlierDetection OutlierDetection       `json:"outlierDetection,omitempty"`
+}
+type LoadBalancerSettings struct {
+	Simple         SimpleLB         `json:"simple,omitempty"`
+	ConsistentHash ConsistentHashLB `json:"consistentHash,omitempty"`
+}
+
+type ConsistentHashLB struct {
+	HTTPHeaderName  string `json:"httpHeaderName,omitempty"`
+	UseSourceIP     bool   `json:"useSourceIp,omitempty"`
+	MinimumRingSize uint64 `json:"minimumRingSize,omitempty"`
 }
 
 //负载均衡类型 rr;leastConn;random
@@ -212,7 +332,7 @@ type Handler struct {
 }
 
 type HealthProbe struct {
-	Handler             `json:",inline" protobuf:"bytes,1,opt,name=handler"`
+	Handler             `json:haneler",inline" protobuf:"bytes,1,opt,name=handler"`
 	InitialDelaySeconds int32 `json:"initialDelaySeconds,omitempty" protobuf:"varint,2,opt,name=initialDelaySeconds"`
 
 	TimeoutSeconds int32 `json:"timeoutSeconds,omitempty" protobuf:"varint,3,opt,name=timeoutSeconds"`
