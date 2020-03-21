@@ -226,7 +226,7 @@ type Disk struct {
 	Ephemeral bool   `json:"ephemeral"`
 }
 
-type Volume struct {
+type CVolume struct {
 	Name          string `json:"name"`
 	MountPath     string `json:"mountPath"`
 	AccessMode    string `json:"accessMode,omitempty"`
@@ -235,10 +235,10 @@ type Volume struct {
 }
 
 type CResource struct {
-	Cpu      string   `json:"cpu,omitempty"`
-	Memory   string   `json:"memory,omitempty"`
-	Gpu      int      `json:"gpu,omitempty"`
-	CVolumes []Volume `json:"volumes,omitempty"`
+	Cpu     string    `json:"cpu,omitempty"`
+	Memory  string    `json:"memory,omitempty"`
+	Gpu     int       `json:"gpu,omitempty"`
+	Volumes []CVolume `json:"volumes,omitempty"`
 }
 
 type EnvVar struct {
