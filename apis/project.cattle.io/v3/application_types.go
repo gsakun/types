@@ -222,7 +222,7 @@ type ComponentTraitsForDev struct {
 }
 
 type Disk struct {
-	Required  string `json:"required"`
+	Required  string `json:"required,omitempty"`
 	Ephemeral bool   `json:"ephemeral"`
 }
 
@@ -235,16 +235,16 @@ type Volume struct {
 }
 
 type CResource struct {
-	Cpu     string   `json:"cpu,omitempty"`
-	Memory  string   `json:"memory,omitempty"`
-	Gpu     int      `json:"gpu,omitempty"`
-	Volumes []Volume `json:"volumes,omitempty"`
+	Cpu      string   `json:"cpu,omitempty"`
+	Memory   string   `json:"memory,omitempty"`
+	Gpu      int      `json:"gpu,omitempty"`
+	CVolumes []Volume `json:"volumes,omitempty"`
 }
 
 type EnvVar struct {
 	Name      string `json:"name"`
 	Value     string `json:"value"`
-	FromParam string `json:"fromParam"`
+	FromParam string `json:"fromParam,omitempty"`
 }
 
 type AppPort struct {
@@ -256,7 +256,7 @@ type AppPort struct {
 type ComponentContainer struct {
 	Name string `json:"name"`
 
-	Image string `json:"image,omitempty"`
+	Image string `json:"image"`
 
 	Command []string `json:"command,omitempty"`
 
@@ -296,7 +296,7 @@ type Component struct {
 
 	WorkloadSettings []WorkloadSetting `json:"workloadSetings,omitempty"`
 
-	DevTraits ComponentTraitsForDev `json:"devTraits"`
+	DevTraits ComponentTraitsForDev `json:"devTraits,omitempty"`
 	OptTraits ComponentTraitsForOpt `json:"optTraits,omitempty"`
 }
 
