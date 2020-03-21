@@ -241,7 +241,7 @@ type CResource struct {
 	Volumes []CVolume `json:"volumes,omitempty"`
 }
 
-type EnvVar struct {
+type CEnvVar struct {
 	Name      string `json:"name"`
 	Value     string `json:"value"`
 	FromParam string `json:"fromParam,omitempty"`
@@ -264,7 +264,7 @@ type ComponentContainer struct {
 
 	Ports []AppPort `json:"ports,omitempty"`
 
-	Env []EnvVar `json:"env,omitempty"`
+	Env []CEnvVar `json:"env,omitempty"`
 
 	Resources CResource `json:"resources,omitempty"`
 
