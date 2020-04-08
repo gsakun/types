@@ -865,6 +865,7 @@ func (in *ComponentContainer) DeepCopyInto(out *ComponentContainer) {
 	in.Resources.DeepCopyInto(&out.Resources)
 	in.LivenessProbe.DeepCopyInto(&out.LivenessProbe)
 	in.ReadinessProbe.DeepCopyInto(&out.ReadinessProbe)
+	in.Lifecycle.DeepCopyInto(&out.Lifecycle)
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
 		*out = make([]ConfigFile, len(*in))
@@ -3268,4 +3269,29 @@ func (in *CircuitBreaking) DeepCopy() *CircuitBreaking {
 	out := new(CircuitBreaking)
 	in.DeepCopyInto(out)
 	return out
+}
+
+//zk
+func (in *CLifecycle) DeepCopy() *CLifecycle {
+	if in == nil {
+		return nil
+	}
+	out := new(CLifecycle)
+	in.DeepCopyInto(out)
+	return out
+}
+
+func (in *CLifecycle) DeepCopyInto(out *CLifecycle) {
+	*out = *in
+	if in.PostStart != nil {
+		in, out := &in.PostStart, &out.PostStart
+		*out = new(Handler)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.PreStop != nil {
+		in, out := &in.PreStop, &out.PreStop
+		*out = new(Handler)
+		(*in).DeepCopyInto(*out)
+	}
+	return
 }

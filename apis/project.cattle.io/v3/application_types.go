@@ -272,11 +272,16 @@ type ComponentContainer struct {
 
 	ReadinessProbe HealthProbe `json:"readinessProbe,omitempty"`
 
-	ImagePullPolicy PullPolicy `json:"imagePullPolicy,omitempty"`
-
+	ImagePullPolicy PullPolicy       `json:"imagePullPolicy,omitempty"`
+	Lifecycle       CLifecycle       `json:"lifecycle,omitempty"`
 	Config          []ConfigFile     `json:"config,omitempty"`
 	ImagePullSecret string           `json:"imagePullSecret,omitempty"`
 	SecurityContext *SecurityContext `json:"securityContext,omitempty"`
+}
+
+type CLifecycle struct {
+	PostStart *Handler `json:"postStart,omitempty" protobuf:"bytes,1,opt,name=postStart"`
+	PreStop   *Handler `json:"preStop,omitempty" protobuf:"bytes,2,opt,name=preStop"`
 }
 
 type WorkloadType string
