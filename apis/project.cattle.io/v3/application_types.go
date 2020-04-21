@@ -64,6 +64,20 @@ type ComponentTraitsForOpt struct {
 	Fusing          Fusing          `json:"fusing,omitempty"` //zk
 	RateLimit       RateLimit       `json:"rateLimit,omitempty"`
 	CircuitBreaking CircuitBreaking `json:"circuitbreaking,omitempty"` //zk
+	HttpRetry       HttpRetry       `json:"httpretry,omitempty"`
+	Autoscaling     Autoscaling     `json:"autoscaling"`
+}
+
+type Autoscaling struct {
+	Metric      string  `json:"metric"`
+	Threshold   float64 `json:"threshold"`
+	MaxReplicas int     `json:"maxreplicas"`
+	MinReplicas int     `json:"minreplicas"`
+}
+
+type HttpRetry struct {
+	Attempts      string `json:"attempts"`
+	PerTryTimeout string `json:pertrytimeout`
 }
 
 //zk
