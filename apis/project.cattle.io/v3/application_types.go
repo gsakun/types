@@ -56,23 +56,31 @@ type ManualScaler struct {
 }
 
 type ComponentTraitsForOpt struct {
-	ManualScaler    ManualScaler    `json:"manualScaler,omitempty"`
-	VolumeMounter   VolumeMounter   `json:"volumeMounter,omitempty"`
-	Ingress         AppIngress      `json:"ingress"`
-	WhiteList       WhiteList       `json:"whiteList,omitempty"`
-	Eject           []string        `json:"eject,omitempty"`
-	Fusing          Fusing          `json:"fusing,omitempty"` //zk
-	RateLimit       RateLimit       `json:"rateLimit,omitempty"`
-	CircuitBreaking CircuitBreaking `json:"circuitbreaking,omitempty"` //zk
-	HttpRetry       HttpRetry       `json:"httpretry,omitempty"`
-	Autoscaling     Autoscaling     `json:"autoscaling"`
+	ManualScaler                  ManualScaler    `json:"manualScaler,omitempty"`
+	VolumeMounter                 VolumeMounter   `json:"volumeMounter,omitempty"`
+	Ingress                       AppIngress      `json:"ingress"`
+	WhiteList                     WhiteList       `json:"whiteList,omitempty"`
+	Eject                         []string        `json:"eject,omitempty"`
+	Fusing                        Fusing          `json:"fusing,omitempty"` //zk
+	RateLimit                     RateLimit       `json:"rateLimit,omitempty"`
+	CircuitBreaking               CircuitBreaking `json:"circuitbreaking,omitempty"` //zk
+	HttpRetry                     HttpRetry       `json:"httpretry,omitempty"`
+	Autoscaling                   Autoscaling     `json:"autoscaling,omitempty"`                   //zk
+	CustomMetric                  CustomMetric    `json:"custommetric,omitempty"`                  //zk
+	TerminationGracePeriodSeconds int64           `json:"terminationGracePeriodSeconds,omitempty"` //zk
+}
+
+//zk
+type CustomMetric struct {
+	Enable bool   `json: "enable"`
+	Uri    string `json:"uri,omitempty"`
 }
 
 type Autoscaling struct {
-	Metric      string  `json:"metric"`
-	Threshold   float64 `json:"threshold"`
-	MaxReplicas int     `json:"maxreplicas"`
-	MinReplicas int     `json:"minreplicas"`
+	Metric      string `json:"metric"`
+	Threshold   int64  `json:"threshold"`
+	MaxReplicas int    `json:"maxreplicas"`
+	MinReplicas int    `json:"minreplicas"`
 }
 
 type HttpRetry struct {

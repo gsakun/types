@@ -13,26 +13,20 @@ replace (
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/ghodss/yaml v1.0.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b // indirect
 	github.com/google/btree v1.0.0 // indirect
-	github.com/gorilla/websocket v0.0.0-20150714140627-6eb6ad425a89
+	github.com/gorilla/websocket v0.0.0-20150714140627-6eb6ad425a89 // indirect
 	github.com/gregjones/httpcache v0.0.0-20190611155906-901d90724c79 // indirect
 	github.com/knative/pkg v0.0.0-00010101000000-000000000000
-	github.com/maruel/panicparse v0.0.0-20171209025017-c0182c169410
+	github.com/maruel/panicparse v0.0.0-20171209025017-c0182c169410 // indirect
 	github.com/maruel/ut v1.0.0 // indirect
-	github.com/matryer/moq v0.0.0-20190312154309-6cfb0558e1bd
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
 	github.com/pkg/errors v0.8.1
-	github.com/prometheus/client_golang v1.0.0
 	github.com/prometheus/common v0.9.1 // indirect
 	github.com/prometheus/procfs v0.0.10 // indirect
 	github.com/rancher/norman v0.0.0-20190319175355-e10534b012b0
-	github.com/rancher/wrangler v0.1.5
+	github.com/rancher/wrangler v0.1.5 // indirect
 	github.com/sirupsen/logrus v1.4.2
-	github.com/stretchr/testify v1.3.0
-	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
-	golang.org/x/time v0.0.0-20190308202827-9d24e82272b4
 	google.golang.org/appengine v1.6.1 // indirect
 	k8s.io/api v0.0.0-20190409021203-6e4e0e4f393b
 	k8s.io/apiextensions-apiserver v0.0.0-20190409022649-727a075fdec8
