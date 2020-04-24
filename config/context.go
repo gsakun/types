@@ -349,7 +349,10 @@ func NewUserContext(scaledContext *ScaledContext, config rest.Config, clusterNam
 		RESTConfig:  config,
 		ClusterName: clusterName,
 	}
-
+	context.Autoscaling, err = autoscaling.NewForConfig(config)
+	if err != nil {
+		return nil, err
+	}
 	context.Management, err = scaledContext.NewManagementContext()
 	if err != nil {
 		return nil, err
