@@ -3,33 +3,34 @@ package config
 import (
 	"context"
 
+	appsv1beta2 "github.com/hd-Li/types/apis/apps/v1beta2"
+	istioauthnv1alpha1 "github.com/hd-Li/types/apis/authentication.istio.io/v1alpha1"
+	autoscaling "github.com/hd-Li/types/apis/autoscaling/v2beta2"
+	batchv1 "github.com/hd-Li/types/apis/batch/v1"
+	batchv1beta1 "github.com/hd-Li/types/apis/batch/v1beta1"
+	clusterv3 "github.com/hd-Li/types/apis/cluster.cattle.io/v3"
+	clusterSchema "github.com/hd-Li/types/apis/cluster.cattle.io/v3/schema"
+	istioconfigv1alpha2 "github.com/hd-Li/types/apis/config.istio.io/v1alpha2"
+	corev1 "github.com/hd-Li/types/apis/core/v1"
+	extv1beta1 "github.com/hd-Li/types/apis/extensions/v1beta1"
+	managementv3 "github.com/hd-Li/types/apis/management.cattle.io/v3"
+	managementSchema "github.com/hd-Li/types/apis/management.cattle.io/v3/schema"
+	monitoringv1 "github.com/hd-Li/types/apis/monitoring.coreos.com/v1"
+	istionetworkingv1alph3 "github.com/hd-Li/types/apis/networking.istio.io/v1alpha3"
+	knetworkingv1 "github.com/hd-Li/types/apis/networking.k8s.io/v1"
+	projectv3 "github.com/hd-Li/types/apis/project.cattle.io/v3"
+	projectSchema "github.com/hd-Li/types/apis/project.cattle.io/v3/schema"
+	rbacv1 "github.com/hd-Li/types/apis/rbac.authorization.k8s.io/v1"
+	istiorbacv1alpha1 "github.com/hd-Li/types/apis/rbac.istio.io/v1alpha1"
+	"github.com/hd-Li/types/config/dialer"
+	"github.com/hd-Li/types/peermanager"
+	"github.com/hd-Li/types/user"
 	"github.com/rancher/norman/controller"
 	"github.com/rancher/norman/objectclient/dynamic"
 	"github.com/rancher/norman/restwatch"
 	"github.com/rancher/norman/signal"
 	"github.com/rancher/norman/store/proxy"
 	"github.com/rancher/norman/types"
-	appsv1beta2 "github.com/hd-Li/types/apis/apps/v1beta2"
-	batchv1 "github.com/hd-Li/types/apis/batch/v1"
-	batchv1beta1 "github.com/hd-Li/types/apis/batch/v1beta1"
-	clusterv3 "github.com/hd-Li/types/apis/cluster.cattle.io/v3"
-	clusterSchema "github.com/hd-Li/types/apis/cluster.cattle.io/v3/schema"
-	corev1 "github.com/hd-Li/types/apis/core/v1"
-	extv1beta1 "github.com/hd-Li/types/apis/extensions/v1beta1"
-	managementv3 "github.com/hd-Li/types/apis/management.cattle.io/v3"
-	managementSchema "github.com/hd-Li/types/apis/management.cattle.io/v3/schema"
-	monitoringv1 "github.com/hd-Li/types/apis/monitoring.coreos.com/v1"
-	knetworkingv1 "github.com/hd-Li/types/apis/networking.k8s.io/v1"
-	projectv3 "github.com/hd-Li/types/apis/project.cattle.io/v3"
-	projectSchema "github.com/hd-Li/types/apis/project.cattle.io/v3/schema"
-	rbacv1 "github.com/hd-Li/types/apis/rbac.authorization.k8s.io/v1"
-	istioauthnv1alpha1 "github.com/hd-Li/types/apis/authentication.istio.io/v1alpha1"
-	istionetworkingv1alph3 "github.com/hd-Li/types/apis/networking.istio.io/v1alpha3"
-	istiorbacv1alpha1 "github.com/hd-Li/types/apis/rbac.istio.io/v1alpha1"
-	istioconfigv1alpha2 "github.com/hd-Li/types/apis/config.istio.io/v1alpha2"
-	"github.com/hd-Li/types/config/dialer"
-	"github.com/hd-Li/types/peermanager"
-	"github.com/hd-Li/types/user"
 	"github.com/sirupsen/logrus"
 	"k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -178,17 +179,17 @@ type UserContext struct {
 	UnversionedClient rest.Interface
 	APIExtClient      clientset.Interface
 	K8sClient         kubernetes.Interface
-
-	Apps         appsv1beta2.Interface
-	Project      projectv3.Interface
-	Core         corev1.Interface
-	RBAC         rbacv1.Interface
-	Extensions   extv1beta1.Interface
-	BatchV1      batchv1.Interface
-	BatchV1Beta1 batchv1beta1.Interface
-	Networking   knetworkingv1.Interface
-	Monitoring   monitoringv1.Interface
-	Cluster      clusterv3.Interface
+	Autoscaling       autoscaling.Interface
+	Apps              appsv1beta2.Interface
+	Project           projectv3.Interface
+	Core              corev1.Interface
+	RBAC              rbacv1.Interface
+	Extensions        extv1beta1.Interface
+	BatchV1           batchv1.Interface
+	BatchV1Beta1      batchv1beta1.Interface
+	Networking        knetworkingv1.Interface
+	Monitoring        monitoringv1.Interface
+	Cluster           clusterv3.Interface
 }
 
 func (w *UserContext) controllers() []controller.Starter {
@@ -213,16 +214,16 @@ func (w *UserContext) UserOnlyContext() *UserOnlyContext {
 		RESTConfig:        w.RESTConfig,
 		UnversionedClient: w.UnversionedClient,
 		K8sClient:         w.K8sClient,
-
-		Apps:         w.Apps,
-		Project:      w.Project,
-		Core:         w.Core,
-		RBAC:         w.RBAC,
-		Extensions:   w.Extensions,
-		BatchV1:      w.BatchV1,
-		BatchV1Beta1: w.BatchV1Beta1,
-		Monitoring:   w.Monitoring,
-		Cluster:      w.Cluster,
+		Autoscaling:       w.Autoscaling,
+		Apps:              w.Apps,
+		Project:           w.Project,
+		Core:              w.Core,
+		RBAC:              w.RBAC,
+		Extensions:        w.Extensions,
+		BatchV1:           w.BatchV1,
+		BatchV1Beta1:      w.BatchV1Beta1,
+		Monitoring:        w.Monitoring,
+		Cluster:           w.Cluster,
 	}
 }
 
@@ -232,20 +233,20 @@ type UserOnlyContext struct {
 	RESTConfig        rest.Config
 	UnversionedClient rest.Interface
 	K8sClient         kubernetes.Interface
-
-	Apps         appsv1beta2.Interface
-	Project      projectv3.Interface
-	Core         corev1.Interface
-	RBAC         rbacv1.Interface
-	Extensions   extv1beta1.Interface
-	BatchV1      batchv1.Interface
-	BatchV1Beta1 batchv1beta1.Interface
-	Monitoring   monitoringv1.Interface
-	Cluster      clusterv3.Interface
-	IstioRbac    istiorbacv1alpha1.Interface
-	IstioAuthn   istioauthnv1alpha1.Interface
-	IstioNetworking istionetworkingv1alph3.Interface
-	IstioConfig  istioconfigv1alpha2.Interface
+	Autoscaling       autoscaling.Interface
+	Apps              appsv1beta2.Interface
+	Project           projectv3.Interface
+	Core              corev1.Interface
+	RBAC              rbacv1.Interface
+	Extensions        extv1beta1.Interface
+	BatchV1           batchv1.Interface
+	BatchV1Beta1      batchv1beta1.Interface
+	Monitoring        monitoringv1.Interface
+	Cluster           clusterv3.Interface
+	IstioRbac         istiorbacv1alpha1.Interface
+	IstioAuthn        istioauthnv1alpha1.Interface
+	IstioNetworking   istionetworkingv1alph3.Interface
+	IstioConfig       istioconfigv1alpha2.Interface
 }
 
 func (w *UserOnlyContext) controllers() []controller.Starter {
@@ -254,6 +255,7 @@ func (w *UserOnlyContext) controllers() []controller.Starter {
 		w.Project,
 		w.Core,
 		w.RBAC,
+		w.Autoscaling,
 		w.Extensions,
 		w.BatchV1,
 		w.BatchV1Beta1,
@@ -441,7 +443,10 @@ func NewUserOnlyContext(config rest.Config) (*UserOnlyContext, error) {
 	context := &UserOnlyContext{
 		RESTConfig: config,
 	}
-
+	context.Autoscaling, err = autoscaling.NewForConfig(config)
+	if err != nil {
+		return nil, err
+	}
 	context.K8sClient, err = kubernetes.NewForConfig(&config)
 	if err != nil {
 		return nil, err
@@ -487,27 +492,27 @@ func NewUserOnlyContext(config rest.Config) (*UserOnlyContext, error) {
 	if err != nil {
 		return nil, err
 	}
-	
-    context.IstioAuthn, err = istioauthnv1alpha1.NewForConfig(config)
-    if err != nil {
+
+	context.IstioAuthn, err = istioauthnv1alpha1.NewForConfig(config)
+	if err != nil {
 		return nil, err
 	}
-    
-    context.IstioNetworking, err = istionetworkingv1alph3.NewForConfig(config)
-    if err != nil {
+
+	context.IstioNetworking, err = istionetworkingv1alph3.NewForConfig(config)
+	if err != nil {
 		return nil, err
 	}
-    
-    context.IstioRbac, err = istiorbacv1alpha1.NewForConfig(config)
-    if err != nil {
+
+	context.IstioRbac, err = istiorbacv1alpha1.NewForConfig(config)
+	if err != nil {
 		return nil, err
 	}
-    
-    context.IstioConfig, err = istioconfigv1alpha2.NewForConfig(config)
-    if err != nil {
+
+	context.IstioConfig, err = istioconfigv1alpha2.NewForConfig(config)
+	if err != nil {
 		return nil, err
 	}
-    
+
 	dynamicConfig := config
 	if dynamicConfig.NegotiatedSerializer == nil {
 		dynamicConfig.NegotiatedSerializer = dynamic.NegotiatedSerializer
