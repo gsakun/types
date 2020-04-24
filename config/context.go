@@ -198,6 +198,7 @@ func (w *UserContext) controllers() []controller.Starter {
 		w.Project,
 		w.Core,
 		w.RBAC,
+		w.Autoscaling,
 		w.Extensions,
 		w.BatchV1,
 		w.BatchV1Beta1,
