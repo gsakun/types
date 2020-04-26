@@ -78,9 +78,9 @@ type CustomMetric struct {
 
 type Autoscaling struct {
 	Metric      string `json:"metric"`
-	Threshold   int64  `json:"threshold"`
-	MaxReplicas int32    `json:"maxreplicas"`
-	MinReplicas int32    `json:"minreplicas"`
+	Threshold   int32  `json:"threshold"`
+	MaxReplicas int32  `json:"maxreplicas"`
+	MinReplicas int32  `json:"minreplicas"`
 }
 
 type HttpRetry struct {
