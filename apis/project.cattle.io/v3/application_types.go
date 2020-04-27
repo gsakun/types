@@ -309,6 +309,7 @@ type SchedulePolicy struct {
 }
 
 type CPodAffinity struct {
+	HardAffinity              bool `json:"hardAffinity,omitempty"`
 	CLabelSelectorRequirement `json:"labelSelectorRequirement,omitempty"`
 }
 
