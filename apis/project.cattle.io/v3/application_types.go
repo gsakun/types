@@ -68,6 +68,7 @@ type ComponentTraitsForOpt struct {
 	Autoscaling                   Autoscaling     `json:"autoscaling,omitempty"`                   //zk
 	CustomMetric                  CustomMetric    `json:"custommetric,omitempty"`                  //zk
 	TerminationGracePeriodSeconds int64           `json:"terminationGracePeriodSeconds,omitempty"` //zk
+	SchedulePolicy                SchedulePolicy  `json:"schedulePolicy,omitempty"`
 }
 
 //zk
@@ -299,7 +300,6 @@ type ComponentContainer struct {
 	Config          []ConfigFile     `json:"config,omitempty"`
 	ImagePullSecret string           `json:"imagePullSecret,omitempty"`
 	SecurityContext *SecurityContext `json:"securityContext,omitempty"`
-	SchedulePolicy  SchedulePolicy   `json:"schedulePolicy,omitempty"`
 }
 
 type SchedulePolicy struct {

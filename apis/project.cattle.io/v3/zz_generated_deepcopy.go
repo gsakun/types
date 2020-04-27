@@ -876,7 +876,6 @@ func (in *ComponentContainer) DeepCopyInto(out *ComponentContainer) {
 		*out = new(SecurityContext)
 		**out = **in
 	}
-	in.SchedulePolicy.DeepCopyInto(&out.SchedulePolicy)
 	return
 }
 
@@ -1018,6 +1017,9 @@ func (in *ComponentTraitsForOpt) DeepCopyInto(out *ComponentTraitsForOpt) {
 	in.Fusing.DeepCopyInto(&out.Fusing)
 	in.RateLimit.DeepCopyInto(&out.RateLimit)
 	in.CircuitBreaking.DeepCopyInto(&out.CircuitBreaking)
+	out.HttpRetry = in.HttpRetry
+	out.Autoscaling = in.Autoscaling
+	in.SchedulePolicy.DeepCopyInto(&out.SchedulePolicy)
 	return
 }
 
