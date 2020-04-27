@@ -299,7 +299,39 @@ type ComponentContainer struct {
 	Config          []ConfigFile     `json:"config,omitempty"`
 	ImagePullSecret string           `json:"imagePullSecret,omitempty"`
 	SecurityContext *SecurityContext `json:"securityContext,omitempty"`
+	SchedulePolicy  SchedulePolicy   `json:"schedulePolicy,omitempty"`
 }
+
+type SchedulePolicy struct {
+	NodeSelector map[string]string `json:"nodeSelector,omitempty"`
+	NodeAffinity CNodeAffinity     `json:"nodeAffinity,omitempty"`
+	PodAffinity  CPodAffinity      `json:"podAffinity,omitempty"`
+}
+
+type CPodAffinity struct {
+	CLabelSelectorOperator `json:"labelSelectorOperator,omitempty"`
+}
+
+type CNodeAffinity struct {
+	HardAffinity           bool `json:"hardAffinity,omitempty"`
+	CLabelSelectorOperator `json:"labelSelectorOperator,omitempty"`
+}
+
+type CLabelSelectorRequirement struct {
+	Key      string                 `json:"key" patchStrategy:"merge" patchMergeKey:"key" protobuf:"bytes,1,opt,name=key"`
+	Operator CLabelSelectorOperator `json:"operator" protobuf:"bytes,2,opt,name=operator,casttype=LabelSelectorOperator"`
+	Values   []string               `json:"values,omitempty" protobuf:"bytes,3,rep,name=values"`
+}
+
+// A label selector operator is the set of operators that can be used in a selector requirement.
+type CLabelSelectorOperator string
+
+const (
+	LabelSelectorOpIn           CLabelSelectorOperator = "In"
+	LabelSelectorOpNotIn        CLabelSelectorOperator = "NotIn"
+	LabelSelectorOpExists       CLabelSelectorOperator = "Exists"
+	LabelSelectorOpDoesNotExist CLabelSelectorOperator = "DoesNotExist"
+)
 
 type CLifecycle struct {
 	PostStart *Handler `json:"postStart,omitempty" protobuf:"bytes,1,opt,name=postStart"`
