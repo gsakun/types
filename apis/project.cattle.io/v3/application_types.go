@@ -309,12 +309,12 @@ type SchedulePolicy struct {
 }
 
 type CPodAffinity struct {
-	CLabelSelectorOperator `json:"labelSelectorOperator,omitempty"`
+	CLabelSelectorRequirement `json:"labelSelectorRequirement,omitempty"`
 }
 
 type CNodeAffinity struct {
-	HardAffinity           bool `json:"hardAffinity,omitempty"`
-	CLabelSelectorOperator `json:"labelSelectorOperator,omitempty"`
+	HardAffinity              bool `json:"hardAffinity,omitempty"`
+	CLabelSelectorRequirement `json:"labelSelectorRequirement,omitempty"`
 }
 
 type CLabelSelectorRequirement struct {
