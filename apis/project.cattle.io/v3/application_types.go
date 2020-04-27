@@ -303,9 +303,15 @@ type ComponentContainer struct {
 }
 
 type SchedulePolicy struct {
-	NodeSelector map[string]string `json:"nodeSelector,omitempty"`
-	NodeAffinity CNodeAffinity     `json:"nodeAffinity,omitempty"`
-	PodAffinity  CPodAffinity      `json:"podAffinity,omitempty"`
+	NodeSelector    map[string]string `json:"nodeSelector,omitempty"`
+	NodeAffinity    CNodeAffinity     `json:"nodeAffinity,omitempty"`
+	PodAffinity     CPodAffinity      `json:"podAffinity,omitempty"`
+	PodAntiAffinity CPodAntiAffinity  `json:"podAntiAffinity,omitempty"`
+}
+
+type CPodAntiAffinity struct {
+	HardAffinity              bool `json:"hardAffinity,omitempty"`
+	CLabelSelectorRequirement `json:"labelSelectorRequirement,omitempty"`
 }
 
 type CPodAffinity struct {
