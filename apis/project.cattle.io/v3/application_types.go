@@ -86,7 +86,7 @@ type Autoscaling struct {
 
 type HttpRetry struct {
 	Attempts       int    `json:"attempts"`
-	PerTryInterval string `json: "pertryinterval"`
+	PerTryInterval string `json: "perTryTimeout"`
 }
 
 //zk
