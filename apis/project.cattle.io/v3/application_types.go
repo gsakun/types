@@ -58,10 +58,6 @@ type VolumeMounter struct {
 	StorageClass string `json:"storageClass"`
 }
 
-type ManualScaler struct {
-	Replicas int32 `json:"replicas"`
-}
-
 type ComponentTraitsForOpt struct {
 	LoadBalancer    LoadBalancerSettings `json:"loadBalancer,omitempty"`
 	GrayRelease     map[string]int       `json:"grayRelease,omitempty"`
@@ -201,7 +197,7 @@ type ImagePullConfig struct {
 }
 
 type ComponentTraits struct {
-	Replicas                      int32          `json:"replicas,omitempty"`
+	Replicas                      int32          `json:"replicas"`
 	CustomMetric                  CustomMetric   `json:"custommetric,omitempty"` //zk
 	Logcollect                    bool           `json:"logcollect,,omitempty"`
 	TerminationGracePeriodSeconds int64          `json:"terminationGracePeriodSeconds,omitempty"` //zk
@@ -316,7 +312,6 @@ type Component struct {
 	Name         string       `json:"name"`
 	Version      string       `json:"version"`
 	Parameters   []Parameter  `json:"parameters,omitempty"`
-	Replicas     int32        `json:"replicas"`
 	WorkloadType WorkloadType `json:"workloadType"`
 
 	OsType string `json:"osType,omitempty"`
