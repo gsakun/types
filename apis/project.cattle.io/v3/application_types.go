@@ -75,7 +75,7 @@ type ComponentTraitsForOpt struct {
 
 //zk
 type CustomMetric struct {
-	Enable bool   `json: "enable"`
+	Enable bool   `json:"enable"`
 	Uri    string `json:"uri,omitempty"`
 }
 
@@ -88,7 +88,7 @@ type Autoscaling struct {
 
 type HTTPRetry struct {
 	Attempts      int    `json:"attempts"`
-	PerTryTimeout string `json: "perTryTimeout"`
+	PerTryTimeout string `json:"perTryTimeout"`
 }
 
 //zk
